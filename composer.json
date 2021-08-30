@@ -1,0 +1,21 @@
+{
+    "name": "mootaco/moota-php-sdk",
+    "description": "Moota PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Moota\\Moota\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rezza Kurniawan",
+            "email": "rezza.kurniawan@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    }
+}
