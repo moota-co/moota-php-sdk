@@ -1,0 +1,45 @@
+{
+  "status": true,
+  "mutation": {
+    "account_number": "089666528074",
+    "date": "2021-02-18 00:00:00",
+    "description": "GoPay Topup #NBMB217858773268",
+    "amount": "45217.00",
+    "type": "CR",
+    "note": "buy other food",
+    "balance": "230896.00",
+    "created_at": "2021-09-23 09:43:39",
+    "updated_at": "2021-09-23 15:50:50",
+    "mutation_id": "1rNkD09kda6",
+    "token": "1rNkD09kda6",
+    "bank_id": "9lmVz5MzvbL",
+    "taggings": [],
+    "bank": {
+      "corporate_id": null,
+      "username": "089666528074",
+      "atas_nama": "Moota",
+      "balance": "4117866.00",
+      "account_number": "089666528074",
+      "bank_type": "gojek",
+      "login_retry": 0,
+      "date_from": "2021-09-01 00:00:00",
+      "date_to": "2021-09-23 00:00:00",
+      "meta": {
+        "ref_id": null,
+        "otp": null,
+        "otp_last_attempt": "2021-09-17 16:05:13"
+      },
+      "interval_refresh": 15,
+      "next_queue": null,
+      "is_active": false,
+      "in_queue": 0,
+      "in_progress": 0,
+      "recurred_at": "2021-09-17 15:05:31",
+      "created_at": "2021-09-16 15:05:31",
+      "token": "9lmVz5MzvbL",
+      "bank_id": "9lmVz5MzvbL",
+      "label": "GoPay",
+      "last_update": "2021-09-16T07:50:31.000000Z"
+    }
+  }
+}

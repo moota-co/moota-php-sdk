@@ -2,23 +2,28 @@
 
 namespace Moota\Moota;
 
-use GuzzleHttp\Client;
+//use GuzzleHttp\Client;
+
+use Zttp\Zttp;
 
 class Request
 {
-    public static $base_url = 'https://app.moota.co/api/v2/';
 
-    public static $access_token;
-
-    public static function request($method, $endpoint, $config = [])
+    /**
+     * Request Method
+     *
+     * @param $method
+     * @param $endpoint
+     * @param array $config
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public static function get($endpoint, $params = [])
     {
-        $client = new Client();
-        $client->request($method, self::$base_url . $endpoint, array_merge([
-            'headers' => [
-                'User-Agent' => 'Moota/2.0',
-                'Accept'     => 'application/json',
-                'Authorization'      => 'Bearer ' . self::$access_token
-            ]
-        ], $config));
+        return Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'decode_content' => false,
+            'Authorization'     => 'Bearer ' . Config::$access_token
+        ])->get(Config::BASE_URL . $endpoint);
     }
 }
