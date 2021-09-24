@@ -14,7 +14,8 @@ class ParseResponse
 
     public $exceptionClass = [
         Config::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Exception\Mutation\MutationException',
-        Config::ENDPOINT_MUTATION_STORE => 'Moota\Moota\Exception\Mutation\MutationException'
+        Config::ENDPOINT_MUTATION_STORE =>  'Moota\Moota\Exception\Mutation\MutationException',
+        Config::ENDPOINT_MUTATION_DESTROY => 'Moota\Moota\Exception\Mutation\MutationException'
     ];
 
     private $response;
@@ -22,9 +23,6 @@ class ParseResponse
     public function __construct($results, $url)
     {
         $parts = parse_url($url);
-//        print_r($parts);exit();
-
-//        print_r($results->json());exit();
 
         if(! $results->isOk() ) {
             if( isset($this->exceptionClass[$parts['path']]) ) {
@@ -34,7 +32,6 @@ class ParseResponse
             throw new MootaException($results->json()['message'], $results->status(), null, $results->json());
         }
 
-//        print_r($results->json());exit();
         if(! isset($this->responseClass[$parts['path']])) {
             return $this->response = $results->json();
         }

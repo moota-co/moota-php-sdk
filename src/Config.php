@@ -27,7 +27,8 @@ class Config
     const ENDPOINT_MUTATION_INDEX = '/api/v2/mutation';
     const ENDPOINT_MUTATION_STORE = '/api/v2/mutation/store/';
     const ENDPOINT_MUTATION_NOTE = '/api/v2/mutation/{mutation_id}/note';
-
+    const ENDPOINT_MUTATION_PUSH_WEBHOOK = '/api/v2/mutation/{mutation_id}/webhook';
+    const ENDPOINT_MUTATION_DESTROY = '/api/v2/mutation/destroy';
 
 
 }

@@ -72,6 +72,41 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_NOTE, 1
     return response()->json( $response ,  $request->header('Z-Status', 404) );
 });
 
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'abcd', '{mutation_id}'), function () {
+    $request = app('request');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailAddNoteMutationResponse.json');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json( $response ,  $request->header('Z-Status', 404) );
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'hashing_mutation_id', '{mutation_id}'), function () {
+    $request = app('request');
+
+    return response()->json( ['status' => 'OK'] ,  $request->header('Z-Status', 200) );
+});
+
+$app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
+    $request = app('request');
+    $mock_destroy_mutation_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockDestroyMutation.json');
+    $mock_fail_destroy_mutation_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailDestrotMutation.json');
+    $mock_invalid_request_destroy_mutation_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockInvalidRequestDestroyMutation.json');
+
+    $response = json_decode($mock_destroy_mutation_response, true);
+    $status = 200;
+
+    if(! in_array( 'hash_mutation_id', $request->json()->all()['mutations'])) {
+        $status = 500;
+        $response = json_decode($mock_fail_destroy_mutation_response, true);
+    }
+
+    if(empty($request->json()->all()['mutations'])) {
+        $status = 422;
+        $response = json_decode($mock_invalid_request_destroy_mutation_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status) );
+});
 
 
 
