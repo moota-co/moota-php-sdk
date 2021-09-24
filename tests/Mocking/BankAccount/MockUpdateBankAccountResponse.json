@@ -1,0 +1,26 @@
+{
+  "status": true,
+  "bank": {
+    "corporate_id": "",
+    "username": "jhon",
+    "atas_nama": "loream kasma",
+    "balance": "0.00",
+    "account_number": "16899030",
+    "bank_type": "bca",
+    "login_retry": 0,
+    "date_from": "2021-09-24 00:00:00",
+    "date_to": "2021-09-24 00:00:00",
+    "meta": null,
+    "interval_refresh": 15,
+    "next_queue": "2021-09-24 15:54:59",
+    "is_active": true,
+    "in_queue": 0,
+    "in_progress": 0,
+    "recurred_at": "2021-09-25 15:39:59",
+    "created_at": "2021-09-24 15:39:59",
+    "token": "1rNkD09kda6",
+    "bank_id": "1rNkD09kda6",
+    "label": "BCA",
+    "last_update": "2021-09-24T08:24:59.000000Z"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "bank_type": [
+      "The selected bank type is invalid."
+    ]
+  }
+}

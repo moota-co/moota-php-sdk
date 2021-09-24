@@ -109,15 +109,48 @@ $app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
 });
 
 
+/**
+ * MOCKING SERVER BANK ACCOUNT
+ */
+$app->router->get(Config::ENDPOINT_BANK_INDEX, function () {
+    $response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockingListBankAccountResponse.json');
+    $request = app('request');
 
-
-$app->router->post('/post', function () {
-    return build_response(app('request'));
+    return response()->json( json_decode($response, true),  $request->header('Z-Status', 200) );
 });
 
-$app->router->put('/put', function () {
-    return build_response(app('request'));
+$app->router->post(Config::ENDPOINT_BANK_STORE, function () {
+    $mock_list_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockStoreBankAccountResponse.json');
+    $mock_fail_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockInvalidStoreBankAccountResponse.json');
+    $mock_fail_with_point_not_enough_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockStoreBankAccountResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_list_bank_account_response, true);
+    $status = 200;
+
+    if(! in_array($request->json()->all()['bank_type'], Config::BANK_TYPES)) {
+        $status = 422;
+        $response = json_decode($mock_fail_bank_account_response, true);
+    }
+
+    return response()->json( $response ,  $request->header('Z-Status', $status) );
 });
+
+$app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, "hashing_qwopejs_id", '{bank_id}'), function () {
+    $mock_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockUpdateBankAccountResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_update_bank_account_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200) );
+});
+
+$app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, 1, '{bank_id}'), function () {
+    $mock_fail_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockFailUpdateBankAccountResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_update_bank_account_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 500));
+});
+
 
 $app->router->patch('/patch', function () {
     return build_response(app('request'));
@@ -135,14 +168,6 @@ $app->router->get('/redirected', function () {
     return "Redirected!";
 });
 
-$app->router->get('/simple-response', function () {
-    return "A simple string response";
-});
-
-$app->router->get('/timeout', function () {
-    sleep(2);
-});
-
 $app->router->get('/basic-auth', function () {
     $headers = [
         (bool)preg_match('/Basic\s[a-zA-Z0-9]+/', app('request')->header('Authorization')),
@@ -151,40 +176,6 @@ $app->router->get('/basic-auth', function () {
     ];
 
     return (count(array_unique($headers)) === 1) ? response(null, 200) : response(null, 401);
-});
-
-$app->router->get('/digest-auth', function () {
-    $realm = 'Restricted area';
-
-    $authorization = app('request')->server->get('PHP_AUTH_DIGEST');
-    if (!$authorization) {
-        return response(null, 401)->header(
-            'WWW-Authenticate',
-            'Digest realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"'
-        );
-    }
-
-    $data = ['nonce' => null, 'nc' => null, 'cnonce' => null, 'qop' => null, 'username' => null, 'uri' => null, 'response' => null];
-    foreach (array_keys($data) as $key) {
-        if (!preg_match("@$key=(?:\"(.*)\"|'(.*)'|(.*),)@U", $authorization, $matches)) {
-            return response(null, 401);
-        }
-        $data[$key] = array_values(array_filter($matches))[1];
-    }
-
-    if ($data['username'] != 'zttp') {
-        return response(null, 401);
-    }
-
-    $a = md5('zttp:' . $realm . ':secret');
-    $b = md5(app('request')->server->get('REQUEST_METHOD') . ':' . $data['uri']);
-    $validResponse = md5($a . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $b);
-
-    if ($data['response'] != $validResponse) {
-        return response(null, 401);
-    }
-
-    return response(200);
 });
 
 $app->router->post('/multi-part', function () {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Moota\Moota\Exception\Mutation;
+namespace Moota\Moota\Exception;
 
 class MootaException extends \Exception
 {

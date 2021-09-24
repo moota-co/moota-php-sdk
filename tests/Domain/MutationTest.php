@@ -4,7 +4,7 @@
 namespace Test\Domain;
 
 use Moota\Moota\Config;
-use Moota\Moota\Exception\Mutation\MootaException;
+use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Exception\Mutation\MutationException;
 use Moota\Moota\Helper\Helper;
 use Moota\Moota\ParseResponse;
@@ -256,30 +256,4 @@ class MutationTest extends TestCase
         $this->expectException(MutationException::class);
         $this->assertEquals($response->json(), (new ParseResponse($response, Config::ENDPOINT_MUTATION_DESTROY))->getResponse());
     }
-
-
 }
-
-
-
-
-//eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJLWmZzZ200Z29kUiIsImp0aSI6IjQ0NTg3ZThiYzM4NTA1NzRiNWJlYjJjZmRlYTE3MmI3MDk1NWIxZjhkNTJhOTRlZWY4MGM5MTAzZjFmZjY5ZTk0NmVlNGQ0MjlhZTlhM2UyIiwiaWF0IjoxNjMyNDU2MzA1LjI0MDgyOSwibmJmIjoxNjMyNDU2MzA1LjI0MDgzMSwiZXhwIjoxNjYzOTkyMzA1LjIzNzA5Mywic3ViIjoiMSIsInNjb3BlcyI6WyJhcGkiXX0.UYJFOlnL4G4KZ2okxUwLNp2769u3O3k0Urhj84G9pU9lreq9L8-037wsWT79DHN-c1zUD1WBnoIEUS6o0q3aM5S-Ssi_roczmB-Ts2Yov_k02BqgW_oLRcbTarbbOhzzHyMHNP7vcI4QrYeyTzpJLo7Wd4Fn4jfhuqqFpLvW34QUxws3gUIQGVz8cKc12OmHlCLgN4N1Bz6hg5jaOMRycIiD03hGM4NazH4fMNDMddhKkbQw8QjnoNnNRnuf7bbLTR-LquyzLDVTT0YGMKH-Cbtu67hmYB9E2wwCimZUpUyM-Bir772BSi59nW66mPqslS1fO8IixlkWTH03hhNu_ninKFmCpH8ZTdkVnruCy9fPDsjAn2pXeSco3NTFnKQccpdCiCJzILyQMNSmSpicqJm3AgPIcdoIZH-La_7niSR5xlks4Ln9Tzu2y8rAgLBCrPK0rIaI9qnhMHX37HQgX7GS9auJM8QVVmePVmfCbG6qsNaoiv5NqJ6tvknK9ilhUNWrHpJvfDIIJYZOG8_sAILFY1DKWk-rm7AF2DiMeOVWIsyfXhmqgnQLDNHfxYjVNVsYO1VWKx2yT4x8ylnz82clGGSA8AO9Rfqj4sOHmxZjndfeW2EqNmHCLoMUFv6WtRLSX3Fjfz30JCX9_wKolMf642kBxdDIwBMx2xecP3Q
-
-//        Config::$ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJmMktXRFJGeThpVSIsImp0aSI6ImIwNjE2MjgzNTFiZGU1ZWFjNmE3MDMwNjAxMzVhMTVlOGVhNzg5N2Q1ZTA2ZTg0NDNmNTAxYWYyMzJlMzIxMjg3MmU2ZjE4NGQ1ZTQ4MzMzIiwiaWF0IjoxNjMyMjk3MTE5LjAwMDg3MywibmJmIjoxNjMyMjk3MTE5LjAwMDg3NiwiZXhwIjoxNjYzODMzMTE4Ljk4ODYwMiwic3ViIjoiMSIsInNjb3BlcyI6WyJhcGkiXX0.p7y_paR0mFxlePH8iUK0BHjD3K2oGq_WYzbu660lENkht1wbSYEvxKR5_OnrQCIscSJefg-BS2gBxrHIQnI_5UtaiH8xNU8J6-IyRAgWsaJK2XpztFUg3ngXQ4DCQ5TRV7lNNt27GNhArZADxLzG6c1CbURUFlA8lnJhu5r1SCVoNI3DkAfwUH4SFa0V9cLDQb-7PK7liZ9T_V8EquXIuoLTZi-wkf5kwdbVg5OQV3P7Nx7O_7-7xYy9zrHySk2FBIqC-wmq22q4mZCOxjlIFhShkR7HxKpX0D_VzspHJYoGIpqd6eveSNDgu1AcuSM6WcR_vTl8iDxw0MVKHxwqjcZh6UdFWTNxs5my0rtoc3NT0XVr5M5ja1xEOqsI3kXi4FRDObD7gJxOp_FezmkQV3zbon7C3oUovKyxgfSssasTKwTJPpPg8z0XzsnbPEBtCM1QJruhyKcgZQyqXYdZzjVZ0FUuEBXgh8XBRrgbkrbqVKBTeRfylSefubawWLCxkrnIwbR3YdMEhJK18nR1IUH8S1jJ8dOWO3l5NX-gJpVBEFkL2R7iLXgtLN8PzJpJQwIZrgbB1Tkbu--sSXwqRMb-mFXcmMUpNE2NEE-TL_zi8-ptxEmSAdNZYxXl4iSMHshikjLhWxXlnSXwG-ppOJRr-QaEF-UM-HMtvyUZDpQ';
-//        $mutations = new \Moota\Moota\Domain\Mutation();
-//
-//        $params = [
-//            'type'          => '',
-//            'bank'          => '',
-//            'amount'        => '',
-//            'description'   => '',
-//            'note'          => '',
-//            'date'          => '',
-//            'start_date'    => '',
-//            'end_date'      => '',
-//            'tag'           => '',
-//            'page'          => 1,
-//            'per_page'      => 20
-//        ];
-//        $response = $mutations->getMutations($params);
-//        print_r($response);exit;
