@@ -256,4 +256,93 @@ class MutationTest extends TestCase
         $this->expectException(MutationException::class);
         $this->assertEquals($response->json(), (new ParseResponse($response, Config::ENDPOINT_MUTATION_DESTROY))->getResponse());
     }
+
+    public function testAttachTagMutation()
+    {
+        Config::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
+        $mutation_id = '8aolk43WJxM';
+        $payload = [
+            "name" => [
+                "assurance", "..."
+            ]
+        ];
+
+        $url = Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $response = Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+        ])
+        ->post($this->url($url), $payload);
+
+        $this->assertTrue($response->status() === 200);
+        $this->assertEquals($response->json(), (new ParseResponse($response, Config::ENDPOINT_MUTATION_DESTROY))->getResponse());
+    }
+
+    public function testFailAttachTagMutation()
+    {
+        Config::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
+        $mutation_id = '8aolk43WJxM';
+        $payload = [
+            "name" => [
+                "assurance-car", "..."
+            ]
+        ];
+
+        $url = Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $response = Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+        ])
+            ->post($this->url($url), $payload);
+
+        $this->assertTrue($response->status() === 422);
+        $this->expectException(MootaException::class);
+        (new ParseResponse($response, Config::ENDPOINT_ATTATCH_TAGGING_MUTATION));
+    }
+
+    public function testUpdateTagMutation()
+    {
+        Config::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
+        $mutation_id = '8aolk43WJxM';
+        $payload = [
+            "name" => [
+                "assurance", "..."
+            ]
+        ];
+
+        $url = Helper::replace_uri_with_id( Config::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $response = Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+        ])
+            ->post($this->url($url), $payload);
+
+        $this->assertTrue($response->status() === 200);
+        $this->assertEquals($response->json(), (new ParseResponse($response, Config::ENDPOINT_UPDATE_TAGGING_MUTATION))->getResponse());
+    }
+
+    public function testDetachTagMutation()
+    {
+        Config::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
+        $mutation_id = '8aolk43WJxM';
+        $payload = [
+            "name" => [
+                "assurance", "..."
+            ]
+        ];
+
+        $url = Helper::replace_uri_with_id( Config::ENDPOINT_DETACH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $response = Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+        ])
+            ->delete($this->url($url), $payload);
+
+        $this->assertTrue($response->status() === 200);
+        $this->assertEquals($response->json(), (new ParseResponse($response, Config::ENDPOINT_DETACH_TAGGING_MUTATION))->getResponse());
+    }
 }

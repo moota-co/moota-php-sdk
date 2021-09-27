@@ -107,6 +107,31 @@ $app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
     return response()->json($response,  $request->header('Z-Status', $status) );
 });
 
+$app->router->post(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $mock_invalid_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestNotFound.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    if( $request->all()['name'][0] != 'assurance') {
+        $status = 422;
+        $response = json_decode($mock_invalid_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
+$app->router->delete(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
+
 /**
 * End Mocking Local Server Mutation
 */

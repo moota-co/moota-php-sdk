@@ -108,4 +108,42 @@ class Mutation
             ->getResponse();
     }
 
+    public function attachTagMutation(string $mutation_id, array $payload)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->post($url, $payload), $url
+        ))
+            ->getResponse();
+    }
+
+    public function detachTagMutation(string $mutation_id, array $payload)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_DETACH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->delete($url, $payload), $url
+        ))
+            ->getResponse();
+    }
+
+    public function updateTagMutation(string $mutation_id, array $payload)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->put($url, $payload), $url
+        ))
+            ->getResponse();
+    }
 }

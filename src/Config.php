@@ -37,10 +37,14 @@ class Config
     const ENDPOINT_BANK_DESTROY = '/api/v2/bank/{bank_id}/destroy';
     const ENDPOINT_BANK_EWALLET_REQUEST_OTP = '/api/v2/bank/request/otp/{bank_id}';
     const ENDPOINT_BANK_EWALLET_VERIFICATION_OTP = '/api/v2/bank/verification/otp/{bank_id}';
+
     const ENDPOINT_TAGGING_INDEX = '/api/v2/tagging';
     const ENDPOINT_TAGGING_STORE = '/api/v2/tagging';
     const ENDPOINT_TAGGING_UPDATE = '/api/v2/tagging/{tag_id}';
     const ENDPOINT_TAGGING_DESTROY = '/api/v2/tagging/{tag_id}';
+    const ENDPOINT_ATTATCH_TAGGING_MUTATION = '/api/v2/tagging/mutation/{mutation_id}';
+    const ENDPOINT_DETACH_TAGGING_MUTATION = '/api/v2/tagging/mutation/{mutation_id}';
+    const ENDPOINT_UPDATE_TAGGING_MUTATION = '/api/v2/tagging/mutation/{mutation_id}';
 
 
     const BANK_TYPES = [
