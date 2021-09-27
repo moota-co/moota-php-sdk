@@ -48,8 +48,13 @@ class Request
             ->put(self::url($endpoint), $payload);
     }
 
-    public static function destroy(string $endpoint, array $payload = [])
+    public static function destroy(string $endpoint)
     {
-
+        return Zttp::withHeaders([
+            'User-Agent'        => 'Moota/2.0',
+            'Accept'            => 'application/json',
+            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+        ])
+            ->put(self::url($endpoint));
     }
 }

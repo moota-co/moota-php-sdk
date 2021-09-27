@@ -111,6 +111,10 @@ $app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
 * End Mocking Local Server Mutation
 */
 
+
+
+
+
 /**
  * Start Mocking Server BankAccount
  */
@@ -217,8 +221,58 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_VER
 });
 
 /**
- * Start Mocking Server BankAccount
+ * End Mocking Server BankAccount
  */
+
+
+
+
+/**
+ * Start Mocking Server Tagging
+ */
+$app->router->get(Config::ENDPOINT_TAGGING_INDEX, function () {
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockListTaggingResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Config::ENDPOINT_TAGGING_STORE, function () {
+    $mock_succcess_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockSuccessStoreTaggingResponse.json');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockInvalidRequestTaggingResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_succcess_response, true);
+    $status = 200;
+
+    if( empty($request->all()['name']) ) {
+        $status = 422;
+        $response = json_decode($mock_fail_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
+$app->router->put(Helper::replace_uri_with_id( Config::ENDPOINT_TAGGING_UPDATE, 'VLagzqBj42Ds', '{tag_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockUpdateTaggingResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->put(Helper::replace_uri_with_id( Config::ENDPOINT_TAGGING_DESTROY, 'VLagzqBj42Ds', '{tag_id}'), function () {
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+/**
+ * End Mocking Server Tagging
+ */
+
 $app->router->patch('/patch', function () {
     return build_response(app('request'));
 });

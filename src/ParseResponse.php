@@ -11,9 +11,11 @@ class ParseResponse
         Config::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Response\MutationResponse',
         Config::ENDPOINT_MUTATION_STORE => 'Moota\Moota\Response\MutationResponse',
 
-        Config::ENDPOINT_BANK_INDEX =>  'Moota\Moota\Response\BankAccount\BankAccountResponse',
-        Config::ENDPOINT_BANK_STORE =>  'Moota\Moota\Response\BankAccount\BankAccountResponse',
-        Config::ENDPOINT_BANK_UPDATE =>  'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Config::ENDPOINT_BANK_INDEX => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Config::ENDPOINT_BANK_STORE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Config::ENDPOINT_BANK_UPDATE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+
+        Config::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
     ];
 
     public $exceptionClass = [

@@ -3,7 +3,7 @@
 namespace Moota\Moota\Domain;
 
 use Moota\Moota\Config;
-use Moota\Moota\Exception\Mutation\MootaException;
+use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Helper\Helper;
 use Moota\Moota\ParseResponse;
 use Moota\Moota\Response\BankAccount\BankAccountResponse;
@@ -50,7 +50,7 @@ class BankAccount
      * @param string $bank_id
      * @param array $payload
      * @return BankAccountResponse
-     * @throws \Moota\Moota\Exception\MootaException
+     * @throws MootaException
      */
     public function updateBankAccount(string $bank_id, array $payload)
     {
@@ -70,8 +70,8 @@ class BankAccount
     /**
      * @param string $bank_id
      *
-     * @return ParseResponse
-     * @throws \Moota\Moota\Exception\MootaException
+     * @return void
+     * @throws MootaException
      */
     public function refreshMutation(string $bank_id)
     {
@@ -89,8 +89,9 @@ class BankAccount
 
     /**
      * @param string $bank_id
-     * @return ParseResponse
-     * @throws \Moota\Moota\Exception\MootaException     */
+     * @return void
+     * @throws MootaException
+     */
     public function destroyBankAccount(string $bank_id)
     {
         $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_BANK_DESTROY, $bank_id, '{bank_id}');
@@ -108,8 +109,8 @@ class BankAccount
     /**
      * @param string $bank_id
      *
-     * @return ParseResponse
-     * @throws \Moota\Moota\Exception\MootaException
+     * @return void
+     * @throws MootaException
      */
     public function bankEwalletRequestOTPCode(string $bank_id)
     {
@@ -129,8 +130,8 @@ class BankAccount
      * @param string $bank_id
      * @param array $payload
      *
-     * @return ParseResponse
-     * @throws \Moota\Moota\Exception\MootaException
+     * @return void
+     * @throws MootaException
      */
     public function bankEwalletVerificationOTPCode(string $bank_id, array $payload)
     {
