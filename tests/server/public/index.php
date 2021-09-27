@@ -22,8 +22,7 @@ function build_response($request)
 }
 
 /**
- * Mocking Mutation
- *
+ * Start Mocking Local Server Mutation
  */
 $app->router->get(Config::ENDPOINT_MUTATION_INDEX, function () {
     $mutations = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockMutationResponse.json');
@@ -108,9 +107,12 @@ $app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
     return response()->json($response,  $request->header('Z-Status', $status) );
 });
 
+/**
+* End Mocking Local Server Mutation
+*/
 
 /**
- * MOCKING SERVER BANK ACCOUNT
+ * Start Mocking Server BankAccount
  */
 $app->router->get(Config::ENDPOINT_BANK_INDEX, function () {
     $response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockingListBankAccountResponse.json');
@@ -151,7 +153,72 @@ $app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, 1, '
     return response()->json($response,  $request->header('Z-Status', 500));
 });
 
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_oqwjas_id', '{bank_id}'), function () {
+    $mock_fail_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_update_bank_account_response, true);
 
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_aswj_id', '{bank_id}'), function () {
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockFailRequestWithPointNotEnough.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 422));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'hash_kiusd_id', '{bank_id}'), function () {
+    $mock_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'hash_qweas_id', '{bank_id}'), function () {
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestNotFound.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 500));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_ewallet_id', '{bank_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockSuccessRequestOtpResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_fail_ewallet_id', '{bank_id}'), function () {
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockFailRequestOtpResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_fail_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 500));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, 'hash_verification_ewallet_id', '{bank_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $mock_invalid_request_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/bankAccount/MockInvalidVerificationOtpCodeResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    if( strlen($request->all()['otp_code']) > 4 || strlen($request->all()['otp_code']) < 4) {
+        $status = 422;
+        $response = json_decode($mock_invalid_request_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
+/**
+ * Start Mocking Server BankAccount
+ */
 $app->router->patch('/patch', function () {
     return build_response(app('request'));
 });

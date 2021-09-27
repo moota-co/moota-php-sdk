@@ -33,6 +33,10 @@ class Config
     const ENDPOINT_BANK_INDEX = '/api/v2/bank';
     const ENDPOINT_BANK_STORE = '/api/v2/bank/store';
     const ENDPOINT_BANK_UPDATE = '/api/v2/bank/update/{bank_id}';
+    const ENDPOINT_BANK_REFRESH_MUTATION = '/api/v2/bank/{bank_id}/refresh';
+    const ENDPOINT_BANK_DESTROY = '/api/v2/bank/{bank_id}/destroy';
+    const ENDPOINT_BANK_EWALLET_REQUEST_OTP = '/api/v2/bank/request/otp/{bank_id}';
+    const ENDPOINT_BANK_EWALLET_VERIFICATION_OTP = '/api/v2/bank/verification/otp/{bank_id}';
 
     const BANK_TYPES = [
         "bca",

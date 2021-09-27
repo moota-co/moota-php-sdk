@@ -66,4 +66,84 @@ class BankAccount
             ->getResponse()
             ->getBankData();
     }
+
+    /**
+     * @param string $bank_id
+     *
+     * @return ParseResponse
+     * @throws \Moota\Moota\Exception\MootaException
+     */
+    public function refreshMutation(string $bank_id)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_BANK_REFRESH_MUTATION, $bank_id, '{bank_id}');
+
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->post($url), $url
+        ))
+            ->getResponse();
+    }
+
+    /**
+     * @param string $bank_id
+     * @return ParseResponse
+     * @throws \Moota\Moota\Exception\MootaException     */
+    public function destroyBankAccount(string $bank_id)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_BANK_DESTROY, $bank_id, '{bank_id}');
+
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->post($url), $url
+        ))
+            ->getResponse();
+    }
+
+    /**
+     * @param string $bank_id
+     *
+     * @return ParseResponse
+     * @throws \Moota\Moota\Exception\MootaException
+     */
+    public function bankEwalletRequestOTPCode(string $bank_id)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, $bank_id, '{bank_id}');
+
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->post($url), $url
+        ))
+            ->getResponse();
+    }
+
+    /**
+     * @param string $bank_id
+     * @param array $payload
+     *
+     * @return ParseResponse
+     * @throws \Moota\Moota\Exception\MootaException
+     */
+    public function bankEwalletVerificationOTPCode(string $bank_id, array $payload)
+    {
+        $url = Helper::replace_uri_with_id(Config::BASE_URL . Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, $bank_id, '{bank_id}');
+
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            ])->post($url, $payload), $url
+        ))
+            ->getResponse();
+    }
+
 }

@@ -1,0 +1,8 @@
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "otp_code": [
+      "The otp code may not be greater than 4 characters."
+    ]
+  }
+}
