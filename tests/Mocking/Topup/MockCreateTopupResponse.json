@@ -1,0 +1,28 @@
+{
+  "error": false,
+  "message": "Anda baru saja melakukan penambahan poin. Silahkan melakukan pembayaran",
+  "topup": {
+    "type": "point",
+    "amount": 50338,
+    "payment_method": [
+      {
+        "atas_nama": "Moota",
+        "bank_type": "bca",
+        "label": "BCA",
+        "account_number": "235264741",
+        "id": "bca",
+        "instruction": "<div> <strong>BCA (BCA Mobile)</strong> <ol> <li>Silahkan masuk ke aplikasi BCA mobile</li> <li>Kemudian silahkan masukan User ID dan Password Mobile Banking BCA Anda</li> <li>Masuk ke menu transfer dan pilih menu “Daftar Transfer” Klik “Antar Rekening”</li> <li>Masukkan rekening penerima rekening BCA 235264741 a.n. Moota, dan klik tombol “Kirim”. Secara otomatis Anda telah mengirimkan SMS ke pihak BCA untuk mendaftarkan nomor rekening tersebut. Perlu diketahui bahwa SMS pendaftaran penerima dana transfer akan memotong pulsa sebesar Rp1.500</li> <li>Selanjutnya konfirmasi nama penerima dana transfer sesuai dengan data penerima transfer yang akan muncul setelah SMS berhasil terkirim.</li> <li>Nomor rekening akan masuk kedalam daftar transfer Anda. Pastikan data penerima transfer tidak salah agar transaksi aman. Pendaftaran nomor rekening penerima hanya dilakukan satu kali, selanjutnya nomor rekening tersebut akan tersimpan dan dapat mengakses daftar penerima transfer di menu transfer.</li> <li>Selanjutnya masuklah ke menu transfer antar rekening. Lalu pilih ke nomor rekening yang telah anda masukkan, dan masukkan nominal yang akan ditransfer.</li> <li>Selanjutnya Anda akan dibawa ke menu konfirmasi nomor rekening penerima. Silahkan masukkan PIN BCA anda dan tunggu PIN terkonfirmasi.</li> <li>Transaksi anda telah selesai. Jangan lupa untuk menscreeenshot bukti transfernya sebagai bukti untuk kami. Selanjutnya Tim Moota akan mengirimkan poin ke akun Moota Anda</li> </ol> </div> <div> <strong>BCA (KlikBCA)</strong> <ol> <li>Silahkan masuk ke halaman klikBCA (kasih link = https://www.klikbca.com/ )</li> <li>Kemudian masukan User ID dan Password klikBCA Anda</li> <li>Pada menu utama di sebelah kiri, pilih “Transfer Dana”</li> <li>Kemudian “Daftar Rekening Tujuan”. Silahkan klik jenis rekening tujuan (Rekening BCA) dan kemudian klik “Kirim”.</li> <li>Selanjutnya masukan nomor rekening, rekening BCA 235264741 a.n. Moota. Lalu masukkan nomor token dan klik lanjutkan.</li> <li>Setelah semua data tersisi, silahkan klik transfer ke rekening BCA. Tekan dari daftar transfer dan kemudian isi jumlah nominal yang dikirimkan.</li> <li>Setelah semua data terisi, aktifkan keyBCA Anda.</li> <li>Masukkan PIN keyBCA anda. Setelah muncul tulisan APPLI kemudian tekan nomor 2 dan masukkan 8 angka yang tertera kedalam KeyBCA. Selanjutnya keyBCA anda akan memberikan respon angka, masukkan angka tersebut kedalam kolom Respon keyBCA APPLI 2.</li> <li>Langkah selanjutnya pilih “TRANSFER SEKARANG”, kemudian klik “LANJUTKAN”</li> <li>Lalu gunakan keyBCA Anda kembali hingga muncul tulisan APPLI, tekan tombol 1 maka akan muncul 8 digit angka, dan masukkan angka tersebut kedalam kolom “Respon keyBCA Appli 1” lalu klik “Kirim”</li> <li>Transaksi anda telah selesai. Jangan lupa untuk menscreeenshot bukti transfernya sebagai bukti untuk kami. Selanjutnya Tim Moota akan mengirimkan poin ke akun Moota Anda.</li> </ol> </div>"
+      }
+    ],
+    "bank_account_id": 1,
+    "reference_number": "MOO/000001/2021/INV",
+    "unique_code": 338,
+    "status": "on-hold",
+    "expired_date": "2021-09-30 11:16:43",
+    "updated_at": "2021-09-28 11:16:43",
+    "created_at": "2021-09-28 11:16:43",
+    "token": "e42qjy2WGE5",
+    "price": "Rp 50.338,00",
+    "statusLabel": "Belum Bayar"
+  }
+}

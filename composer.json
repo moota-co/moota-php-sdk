@@ -15,10 +15,11 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "8.0",
+        "php": "8.0.*",
         "ext-curl": "*",
         "ext-json": "*",
-        "kitetail/zttp": "^0.6.0"
+        "kitetail/zttp": "^0.6.0",
+        "spatie/data-transfer-object": "^3.7"
     },
     "autoload": {
         "psr-4": {

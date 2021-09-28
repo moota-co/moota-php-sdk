@@ -298,6 +298,63 @@ $app->router->put(Helper::replace_uri_with_id( Moota::ENDPOINT_TAGGING_DESTROY, 
  * End Mocking Server Tagging
  */
 
+
+
+
+/**
+ * Start Mocking Server Topup
+ */
+$app->router->get(Moota::ENDPOINT_PAYMENT_METHOD, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockPaymentMethodResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->get(Moota::ENDPOINT_TOPUP_INDEX, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockListTopupResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Moota::ENDPOINT_TOPUP_STORE, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockCreateTopupResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->get(Moota::ENDPOINT_TOPUP_DENOM, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockListAmountTopup.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_TOPUP_CONFIRMATION, 'ajksdha', '{topup_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockListAmountTopup.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json([
+        'body_content' => app('request')->only(['foo', 'baz']),
+        'has_file' => app('request')->hasFile('test-file'),
+        'file_content' => file_get_contents($_FILES),
+        'headers' => app('request')->header(),
+    ], 200);
+
+    return response()->json(app('request'),  $request->header('Z-Status', 200));
+});
+/**
+ * End Mocking Server Topup
+ */
+
+
 $app->router->patch('/patch', function () {
     return build_response(app('request'));
 });

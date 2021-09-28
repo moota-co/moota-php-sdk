@@ -46,27 +46,44 @@ class Moota
     const ENDPOINT_DETACH_TAGGING_MUTATION = '/api/v2/tagging/mutation/{mutation_id}';
     const ENDPOINT_UPDATE_TAGGING_MUTATION = '/api/v2/tagging/mutation/{mutation_id}';
 
-
+    const ENDPOINT_PAYMENT_METHOD = '/api/v2/payment';
+    const ENDPOINT_TOPUP_CONFIRMATION = '/api/v2/topup/confirmation/{topup_id}';
+    const ENDPOINT_TOPUP_INDEX = '/api/v2/topup';
+    const ENDPOINT_TOPUP_STORE = '/api/v2/topup';
+    const ENDPOINT_TOPUP_DENOM = '/api/v2/topup/denom';
+    const ENDPOINT_TOPUP_DOWNLOAD_INVOICE = '/api/v2/topup/download';
+    const ENDPOINT_VOUCHER_REDEEM = '/api/v2/voucher/redeem';
+    const ENDPOINT_TRANSACTION = '/api/v2/transaction';
+    
+    const ENDPOINT_USER_PROFILE = '/api/v2/user';
+    const ENDPOINT_USER_PROFILE_UPDATE = '/api/v2/user';
+    
     const BANK_TYPES = [
         "bca",
-        "bcaSyariah",
-        "bni",
-        "bniSyariah",
+        "bcaGiro",
+        "bcaSyariahV2",
+        "bniBisnisSyariahV2",
+        "bniBisnisV2",
+        "bniSyariahV2",
+        "bniV2",
         "bri",
-        "briCms",
+        "briCmsV2",
         "briGiro",
         "briSyariah",
-        "briSyariahCms",
-        "mandiriOnline",
-        "mandiriBisnis",
-        "mandiriMcm",
-        "mandiriSyariah",
-        "mandiriSyariahMcm",
-        "mandiriSyariahBisnis",
-        "bniBisnis",
-        "muamalat",
-        "bniBisnisSyariah",
+        "briSyariahCmsV2",
+        "bsi",
+        "bsiGiro",
         "gojek",
+        "mandiriBisnisV2",
+        "mandiriMcm2V2",
+        "mandiriMcmV2",
+        "mandiriOnlineV2",
+        "mandiriSyariah",
+        "mandiriSyariahBisnis",
+        "mandiriSyariahMcm",
+        "mayBank",
+        "megaSyariahCms",
+        "muamalatV2",
         "ovo"
     ];
 

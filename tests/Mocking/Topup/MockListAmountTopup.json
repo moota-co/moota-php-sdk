@@ -1,0 +1,52 @@
+[
+  {
+    "value": 50000,
+    "pointLabel": "50.000 poin",
+    "priceLabel": "Rp 50.000,00"
+  },
+  {
+    "value": 100000,
+    "pointLabel": "100.000 poin",
+    "priceLabel": "Rp 100.000,00"
+  },
+  {
+    "value": 150000,
+    "pointLabel": "150.000 poin",
+    "priceLabel": "Rp 150.000,00"
+  },
+  {
+    "value": 200000,
+    "pointLabel": "200.000 poin",
+    "priceLabel": "Rp 200.000,00"
+  },
+  {
+    "value": 500000,
+    "pointLabel": "500.000 poin",
+    "priceLabel": "Rp 500.000,00"
+  },
+  {
+    "value": 1000000,
+    "pointLabel": "1.000.000 poin",
+    "priceLabel": "Rp 1.000.000,00"
+  },
+  {
+    "value": 1500000,
+    "pointLabel": "1.500.000 poin",
+    "priceLabel": "Rp 1.500.000,00"
+  },
+  {
+    "value": 2500000,
+    "pointLabel": "2.500.000 poin",
+    "priceLabel": "Rp 2.500.000,00"
+  },
+  {
+    "value": 5000000,
+    "pointLabel": "5.000.000 poin",
+    "priceLabel": "Rp 5.000.000,00"
+  },
+  {
+    "value": 10000000,
+    "pointLabel": "10.000.000 poin",
+    "priceLabel": "Rp 10.000.000,00"
+  }
+]

@@ -17,6 +17,8 @@ class ParseResponse
         Moota::ENDPOINT_BANK_UPDATE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
 
         Moota::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
+
+        Moota::ENDPOINT_TOPUP_INDEX => 'Moota\Moota\Response\Topup\TopupResponse',
     ];
 
     public $exceptionClass = [
@@ -49,7 +51,6 @@ class ParseResponse
     /**
      * Get response following by class
      *
-     * @return void
      */
     public function getResponse()
     {

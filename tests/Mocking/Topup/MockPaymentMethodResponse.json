@@ -1,0 +1,24 @@
+[
+  {
+    "id": "bank_transfer",
+    "label": "Bank Transfer",
+    "methods": [
+      {
+        "atas_nama": "Moota",
+        "bank_type": "bca",
+        "label": "BCA",
+        "account_number": "235264741",
+        "id": "bca",
+        "instruction": "payment.instructor.bca"
+      },
+      {
+        "atas_nama": "Moota",
+        "bank_type": "mandiriBisnis",
+        "label": "Mandiri Bisnis",
+        "account_number": "0144050",
+        "id": "mandiriBisnis",
+        "instruction": "payment.instructor.mandiriBisnis"
+      }
+    ]
+  }
+]

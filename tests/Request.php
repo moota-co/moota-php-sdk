@@ -23,7 +23,7 @@ class Request
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->get(self::url($endpoint));
+            ->get(self::url($endpoint), $params);
     }
 
     public static function post(string $endpoint, array $payload = [])
@@ -54,5 +54,22 @@ class Request
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
             ->put(self::url($endpoint));
+    }
+
+    public static function postFile(string $endpoint, array $payload)
+    {
+        return Zttp::asMultipart()->post(self::url('/multi-part'), [
+            [
+                'name' => 'test-file',
+                'contents' => 'test contents',
+                'filename' => $payload['file'],
+            ],
+        ]);
+//        return Zttp::withHeaders([
+//                'User-Agent'        => 'Moota/2.0',
+//                'Accept'            => 'application/json',
+//                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
+//            ])
+//            ->post(self::url($endpoint), $payload);
     }
 }
