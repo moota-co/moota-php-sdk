@@ -3,9 +3,7 @@
 
 namespace Test;
 
-
-use Moota\Moota\Config;
-use Test\server\ZttpServer;
+use Moota\Moota\Config\Moota;
 use Zttp\Zttp;
 
 class Request
@@ -23,7 +21,7 @@ class Request
         return Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
-            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
             ->get(self::url($endpoint));
     }
@@ -33,7 +31,7 @@ class Request
         return Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
-            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
             ->post(self::url($endpoint), $payload);
     }
@@ -43,7 +41,7 @@ class Request
         return Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
-            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
             ->put(self::url($endpoint), $payload);
     }
@@ -53,7 +51,7 @@ class Request
         return Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
-            'Authorization'     => 'Bearer ' . Config::$ACCESS_TOKEN
+            'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
             ->put(self::url($endpoint));
     }

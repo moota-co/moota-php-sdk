@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Moota\Moota;
+namespace Moota\Moota\Config;
 
 
-class Config
+class Moota
 {
     /**
      * Secret token anda untuk authentikasi

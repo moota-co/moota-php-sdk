@@ -1,7 +1,7 @@
 <?php
 
 
-use Moota\Moota\Config;
+use Moota\Moota\Config\Moota;
 use Moota\Moota\Helper\Helper;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
@@ -24,7 +24,7 @@ function build_response($request)
 /**
  * Start Mocking Local Server Mutation
  */
-$app->router->get(Config::ENDPOINT_MUTATION_INDEX, function () {
+$app->router->get(Moota::ENDPOINT_MUTATION_INDEX, function () {
     $mutations = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockMutationResponse.json');
     $request = app('request');
     $query_params = $request->query();
@@ -40,7 +40,7 @@ $app->router->get(Config::ENDPOINT_MUTATION_INDEX, function () {
     return response()->json( json_decode($mutations, true),  $request->header('Z-Status', 200) );
 });
 
-$app->router->post(Config::ENDPOINT_MUTATION_STORE, function () {
+$app->router->post(Moota::ENDPOINT_MUTATION_STORE, function () {
     $request = app('request');
     $mock_store_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockStoreMutation.json');
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailStoreMutation.json');
@@ -55,7 +55,7 @@ $app->router->post(Config::ENDPOINT_MUTATION_STORE, function () {
     return response()->json( $response ,  $request->header('Z-Status', $status) );
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_NOTE, 'hash_mutation_id', '{mutation_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, 'hash_mutation_id', '{mutation_id}'), function () {
     $request = app('request');
     $mock_store_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockaddNoteMutationResponse.json');
     $response = json_decode($mock_store_response, true);
@@ -63,7 +63,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_NOTE, '
     return response()->json( $response ,  $request->header('Z-Status', 200) );
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_NOTE, 1, '{mutation_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, 1, '{mutation_id}'), function () {
     $request = app('request');
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailAddNoteMutationResponse.json');
     $response = json_decode($mock_fail_response, true);
@@ -71,7 +71,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_NOTE, 1
     return response()->json( $response ,  $request->header('Z-Status', 404) );
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'abcd', '{mutation_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'abcd', '{mutation_id}'), function () {
     $request = app('request');
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailAddNoteMutationResponse.json');
     $response = json_decode($mock_fail_response, true);
@@ -79,13 +79,13 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_PUSH_WE
     return response()->json( $response ,  $request->header('Z-Status', 404) );
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'hashing_mutation_id', '{mutation_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK, 'hashing_mutation_id', '{mutation_id}'), function () {
     $request = app('request');
 
     return response()->json( ['status' => 'OK'] ,  $request->header('Z-Status', 200) );
 });
 
-$app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
+$app->router->post(Moota::ENDPOINT_MUTATION_DESTROY, function () {
     $request = app('request');
     $mock_destroy_mutation_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockDestroyMutation.json');
     $mock_fail_destroy_mutation_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Mutation/MockFailDestrotMutation.json');
@@ -107,7 +107,7 @@ $app->router->post(Config::ENDPOINT_MUTATION_DESTROY, function () {
     return response()->json($response,  $request->header('Z-Status', $status) );
 });
 
-$app->router->post(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
     $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $mock_invalid_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestNotFound.json');
     $request = app('request');
@@ -122,7 +122,7 @@ $app->router->post(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING
     return response()->json($response,  $request->header('Z-Status', $status));
 });
 
-$app->router->delete(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
+$app->router->delete(Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, '8aolk43WJxM', '{mutation_id}'), function () {
     $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $request = app('request');
     $response = json_decode($mock_success_response, true);
@@ -143,14 +143,14 @@ $app->router->delete(Helper::replace_uri_with_id( Config::ENDPOINT_ATTATCH_TAGGI
 /**
  * Start Mocking Server BankAccount
  */
-$app->router->get(Config::ENDPOINT_BANK_INDEX, function () {
+$app->router->get(Moota::ENDPOINT_BANK_INDEX, function () {
     $response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockingListBankAccountResponse.json');
     $request = app('request');
 
     return response()->json( json_decode($response, true),  $request->header('Z-Status', 200) );
 });
 
-$app->router->post(Config::ENDPOINT_BANK_STORE, function () {
+$app->router->post(Moota::ENDPOINT_BANK_STORE, function () {
     $mock_list_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockStoreBankAccountResponse.json');
     $mock_fail_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockInvalidStoreBankAccountResponse.json');
     $mock_fail_with_point_not_enough_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockStoreBankAccountResponse.json');
@@ -158,7 +158,7 @@ $app->router->post(Config::ENDPOINT_BANK_STORE, function () {
     $response = json_decode($mock_list_bank_account_response, true);
     $status = 200;
 
-    if(! in_array($request->json()->all()['bank_type'], Config::BANK_TYPES)) {
+    if(! in_array($request->json()->all()['bank_type'], Moota::BANK_TYPES)) {
         $status = 422;
         $response = json_decode($mock_fail_bank_account_response, true);
     }
@@ -166,7 +166,7 @@ $app->router->post(Config::ENDPOINT_BANK_STORE, function () {
     return response()->json( $response ,  $request->header('Z-Status', $status) );
 });
 
-$app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, "hashing_qwopejs_id", '{bank_id}'), function () {
+$app->router->put(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_UPDATE, "hashing_qwopejs_id", '{bank_id}'), function () {
     $mock_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockUpdateBankAccountResponse.json');
     $request = app('request');
     $response = json_decode($mock_update_bank_account_response, true);
@@ -174,7 +174,7 @@ $app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, "has
     return response()->json($response,  $request->header('Z-Status', 200) );
 });
 
-$app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, 1, '{bank_id}'), function () {
+$app->router->put(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_UPDATE, 1, '{bank_id}'), function () {
     $mock_fail_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockFailUpdateBankAccountResponse.json');
     $request = app('request');
     $response = json_decode($mock_fail_update_bank_account_response, true);
@@ -182,7 +182,7 @@ $app->router->put(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_UPDATE, 1, '
     return response()->json($response,  $request->header('Z-Status', 500));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_oqwjas_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_oqwjas_id', '{bank_id}'), function () {
     $mock_fail_update_bank_account_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $request = app('request');
     $response = json_decode($mock_fail_update_bank_account_response, true);
@@ -190,7 +190,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUT
     return response()->json($response,  $request->header('Z-Status', 200));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_aswj_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_REFRESH_MUTATION, 'hash_aswj_id', '{bank_id}'), function () {
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockFailRequestWithPointNotEnough.json');
     $request = app('request');
     $response = json_decode($mock_fail_response, true);
@@ -198,7 +198,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_REFRESH_MUT
     return response()->json($response,  $request->header('Z-Status', 422));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'hash_kiusd_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_DESTROY, 'hash_kiusd_id', '{bank_id}'), function () {
     $mock_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $request = app('request');
     $response = json_decode($mock_response, true);
@@ -206,7 +206,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'h
     return response()->json($response,  $request->header('Z-Status', 200));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'hash_qweas_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_DESTROY, 'hash_qweas_id', '{bank_id}'), function () {
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestNotFound.json');
     $request = app('request');
     $response = json_decode($mock_fail_response, true);
@@ -214,7 +214,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_DESTROY, 'h
     return response()->json($response,  $request->header('Z-Status', 500));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_ewallet_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_ewallet_id', '{bank_id}'), function () {
     $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockSuccessRequestOtpResponse.json');
     $request = app('request');
     $response = json_decode($mock_success_response, true);
@@ -222,7 +222,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQ
     return response()->json($response,  $request->header('Z-Status', 200));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_fail_ewallet_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_fail_ewallet_id', '{bank_id}'), function () {
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/BankAccount/MockFailRequestOtpResponse.json');
     $request = app('request');
     $response = json_decode($mock_fail_response, true);
@@ -230,7 +230,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_REQ
     return response()->json($response,  $request->header('Z-Status', 500));
 });
 
-$app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, 'hash_verification_ewallet_id', '{bank_id}'), function () {
+$app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, 'hash_verification_ewallet_id', '{bank_id}'), function () {
     $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $mock_invalid_request_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/bankAccount/MockInvalidVerificationOtpCodeResponse.json');
     $request = app('request');
@@ -255,7 +255,7 @@ $app->router->post(Helper::replace_uri_with_id(Config::ENDPOINT_BANK_EWALLET_VER
 /**
  * Start Mocking Server Tagging
  */
-$app->router->get(Config::ENDPOINT_TAGGING_INDEX, function () {
+$app->router->get(Moota::ENDPOINT_TAGGING_INDEX, function () {
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockListTaggingResponse.json');
     $request = app('request');
     $response = json_decode($mock_fail_response, true);
@@ -263,7 +263,7 @@ $app->router->get(Config::ENDPOINT_TAGGING_INDEX, function () {
     return response()->json($response,  $request->header('Z-Status', 200));
 });
 
-$app->router->post(Config::ENDPOINT_TAGGING_STORE, function () {
+$app->router->post(Moota::ENDPOINT_TAGGING_STORE, function () {
     $mock_succcess_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockSuccessStoreTaggingResponse.json');
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockInvalidRequestTaggingResponse.json');
     $request = app('request');
@@ -278,7 +278,7 @@ $app->router->post(Config::ENDPOINT_TAGGING_STORE, function () {
     return response()->json($response,  $request->header('Z-Status', $status));
 });
 
-$app->router->put(Helper::replace_uri_with_id( Config::ENDPOINT_TAGGING_UPDATE, 'VLagzqBj42Ds', '{tag_id}'), function () {
+$app->router->put(Helper::replace_uri_with_id( Moota::ENDPOINT_TAGGING_UPDATE, 'VLagzqBj42Ds', '{tag_id}'), function () {
     $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Tagging/MockUpdateTaggingResponse.json');
     $request = app('request');
     $response = json_decode($mock_success_response, true);
@@ -286,7 +286,7 @@ $app->router->put(Helper::replace_uri_with_id( Config::ENDPOINT_TAGGING_UPDATE, 
     return response()->json($response,  $request->header('Z-Status', 200));
 });
 
-$app->router->put(Helper::replace_uri_with_id( Config::ENDPOINT_TAGGING_DESTROY, 'VLagzqBj42Ds', '{tag_id}'), function () {
+$app->router->put(Helper::replace_uri_with_id( Moota::ENDPOINT_TAGGING_DESTROY, 'VLagzqBj42Ds', '{tag_id}'), function () {
     $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
     $request = app('request');
     $response = json_decode($mock_fail_response, true);

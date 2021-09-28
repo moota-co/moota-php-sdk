@@ -1,27 +1,28 @@
 <?php
 
 
-namespace Moota\Moota;
+namespace Moota\Moota\Response;
 
+use Moota\Moota\Config\Moota;
 use Moota\Moota\Exception\MootaException;
 
 class ParseResponse
 {
     public $responseClass = [
-        Config::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Response\MutationResponse',
-        Config::ENDPOINT_MUTATION_STORE => 'Moota\Moota\Response\MutationResponse',
+        Moota::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Response\MutationResponse',
+        Moota::ENDPOINT_MUTATION_STORE => 'Moota\Moota\Response\MutationResponse',
 
-        Config::ENDPOINT_BANK_INDEX => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
-        Config::ENDPOINT_BANK_STORE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
-        Config::ENDPOINT_BANK_UPDATE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Moota::ENDPOINT_BANK_INDEX => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Moota::ENDPOINT_BANK_STORE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
+        Moota::ENDPOINT_BANK_UPDATE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
 
-        Config::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
+        Moota::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
     ];
 
     public $exceptionClass = [
-        Config::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Exception\Mutation\MutationException',
-        Config::ENDPOINT_MUTATION_STORE =>  'Moota\Moota\Exception\Mutation\MutationException',
-        Config::ENDPOINT_MUTATION_DESTROY => 'Moota\Moota\Exception\Mutation\MutationException'
+        Moota::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Exception\Mutation\MutationException',
+        Moota::ENDPOINT_MUTATION_STORE =>  'Moota\Moota\Exception\Mutation\MutationException',
+        Moota::ENDPOINT_MUTATION_DESTROY => 'Moota\Moota\Exception\Mutation\MutationException'
     ];
 
     private $response;
