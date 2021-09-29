@@ -53,7 +53,7 @@ class Moota
     const ENDPOINT_TOPUP_DENOM = '/api/v2/topup/denom';
     const ENDPOINT_TOPUP_DOWNLOAD_INVOICE = '/api/v2/topup/download';
     const ENDPOINT_VOUCHER_REDEEM = '/api/v2/voucher/redeem';
-    const ENDPOINT_TRANSACTION = '/api/v2/transaction';
+    const ENDPOINT_TRANSACTION_HISTORY = '/api/v2/transaction';
     
     const ENDPOINT_USER_PROFILE = '/api/v2/user';
     const ENDPOINT_USER_PROFILE_UPDATE = '/api/v2/user';

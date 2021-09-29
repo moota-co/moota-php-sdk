@@ -8,7 +8,7 @@ use Moota\Moota\Exception\MootaException;
 
 class ParseResponse
 {
-    public $responseClass = [
+    public array $responseClass = [
         Moota::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Response\MutationResponse',
         Moota::ENDPOINT_MUTATION_STORE => 'Moota\Moota\Response\MutationResponse',
 
@@ -19,9 +19,11 @@ class ParseResponse
         Moota::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
 
         Moota::ENDPOINT_TOPUP_INDEX => 'Moota\Moota\Response\Topup\TopupResponse',
+
+        Moota::ENDPOINT_TRANSACTION_HISTORY => 'Moota\Moota\Response\Transaction\TransactionHistoryResponse'
     ];
 
-    public $exceptionClass = [
+    public array $exceptionClass = [
         Moota::ENDPOINT_MUTATION_INDEX => 'Moota\Moota\Exception\Mutation\MutationException',
         Moota::ENDPOINT_MUTATION_STORE =>  'Moota\Moota\Exception\Mutation\MutationException',
         Moota::ENDPOINT_MUTATION_DESTROY => 'Moota\Moota\Exception\Mutation\MutationException'

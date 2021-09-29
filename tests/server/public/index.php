@@ -366,6 +366,13 @@ $app->router->post(Moota::ENDPOINT_VOUCHER_REDEEM, function () {
     return response()->json($response,  $request->header('Z-Status', $status));
 });
 
+$app->router->get(Moota::ENDPOINT_TRANSACTION_HISTORY, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Transaction/MockTransactionResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
 /**
  * End Mocking Server Topup
  */

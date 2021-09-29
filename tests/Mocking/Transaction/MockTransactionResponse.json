@@ -1,0 +1,120 @@
+{
+  "current_page": 1,
+  "data": [
+    {
+      "id": 198,
+      "user_id": 1,
+      "type": "credit",
+      "amount": 1000,
+      "balance": -9500,
+      "description": "Redeem Voucher 'test-sdk'",
+      "created_at": "2021-09-29T03:08:53.000000Z",
+      "updated_at": "2021-09-29T03:08:53.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 197,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -10500,
+      "description": "Purchase Service loream - bca",
+      "created_at": "2021-09-24T08:39:59.000000Z",
+      "updated_at": "2021-09-24T08:39:59.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 6,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -9000,
+      "description": "Purchase Service qstreich - ovo",
+      "created_at": "2021-09-24T04:01:58.000000Z",
+      "updated_at": "2021-09-24T04:01:58.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 1,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -1500,
+      "description": "Purchase Service cartwright.dena - bca",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-24T04:01:57.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -3000,
+      "description": "Purchase Service klein.javon - mandiriBisnis",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-24T04:01:57.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -4500,
+      "description": "Purchase Service bernardo.legros - bni",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-24T04:01:57.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 4,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -6000,
+      "description": "Purchase Service eudora16 - bri",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-24T04:01:57.000000Z",
+      "deleted_at": null
+    },
+    {
+      "id": 5,
+      "user_id": 1,
+      "type": "debit",
+      "amount": 1500,
+      "balance": -7500,
+      "description": "Purchase Service vleannon - gojek",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-24T04:01:57.000000Z",
+      "deleted_at": null
+    }
+  ],
+  "first_page_url": "http://moota.test/api/v2/transaction?page=1",
+  "from": 1,
+  "last_page": 1,
+  "last_page_url": "http://moota.test/api/v2/transaction?page=1",
+  "links": [
+    {
+      "url": null,
+      "label": "Sebelumnya",
+      "active": false
+    },
+    {
+      "url": "http://moota.test/api/v2/transaction?page=1",
+      "label": "1",
+      "active": true
+    },
+    {
+      "url": null,
+      "label": "Selanjutnya",
+      "active": false
+    }
+  ],
+  "next_page_url": null,
+  "path": "http://moota.test/api/v2/transaction",
+  "per_page": 10,
+  "prev_page_url": null,
+  "to": 8,
+  "total": 8
+}
