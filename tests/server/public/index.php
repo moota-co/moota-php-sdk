@@ -350,6 +350,22 @@ $app->router->post(Helper::replace_uri_with_id(Moota::ENDPOINT_TOPUP_CONFIRMATIO
 
     return response()->json(app('request'),  $request->header('Z-Status', 200));
 });
+
+$app->router->post(Moota::ENDPOINT_VOUCHER_REDEEM, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockSuccessRedeemVoucherResponse.json');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Topup/MockInvalidRedeemVoucherResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    if( $request->all()['code'] != 'abcd' ) {
+        $status = 422;
+        $response = json_decode($mock_fail_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
 /**
  * End Mocking Server Topup
  */

@@ -2,10 +2,10 @@
 
 namespace Moota\Moota\Domain;
 
-use Illuminate\Support\Facades\Config;
 use Moota\Moota\Config\Moota;
 use Moota\Moota\DTO\Topup\CreateTopupData;
 use Moota\Moota\DTO\Topup\ManualConfirmationTopupData;
+use Moota\Moota\DTO\Topup\VoucherRedeemData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Helper\Helper;
 use Moota\Moota\Response\ParseResponse;
@@ -100,6 +100,34 @@ class Topup
             ->getTopupData();
     }
 
+    /**
+     * Redeem Voucher for increase point
+     *
+     * @param VoucherRedeemData $voucherRedeemData
+     * @return void
+     * @throws MootaException
+     */
+    public function redeemVoucher(VoucherRedeemData $voucherRedeemData)
+    {
+        $url = Moota::BASE_URL . Moota::ENDPOINT_VOUCHER_REDEEM;
+
+        return (new ParseResponse(
+            Zttp::withHeaders([
+                'User-Agent'        => 'Moota/2.0',
+                'Accept'            => 'application/json',
+                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
+            ])->post($url, ['code' => $voucherRedeemData->code]), $url
+        ))
+            ->getResponse();
+    }
+
+    /**
+     * WIP
+     *
+     * @param ManualConfirmationTopupData $manualConfirmationTopupData
+     * @return mixed
+     * @throws MootaException
+     */
     public function uploadFileTopupPointManualConfirmation(ManualConfirmationTopupData $manualConfirmationTopupData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_TOPUP_CONFIRMATION, $manualConfirmationTopupData->topup_id, '{topup_id}');
