@@ -1,0 +1,30 @@
+{
+  "name": "Moota Administrator",
+  "email": "admin@moota.co",
+  "no_ktp": null,
+  "alamat": null,
+  "email_verified_at": null,
+  "created_at": "2021-09-24T04:01:57.000000Z",
+  "updated_at": "2021-09-24T04:01:57.000000Z",
+  "user_id": "VLagzqBj42D",
+  "token": "VLagzqBj42D",
+  "point": -9500,
+  "meta": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "key": "balance",
+      "value": "-9500",
+      "created_at": "2021-09-24T04:01:57.000000Z",
+      "updated_at": "2021-09-29T03:08:53.000000Z"
+    },
+    {
+      "id": 7,
+      "user_id": 1,
+      "key": "email",
+      "value": "0",
+      "created_at": "2021-09-24T09:21:12.000000Z",
+      "updated_at": "2021-09-24T09:21:19.000000Z"
+    }
+  ]
+}
