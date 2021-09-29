@@ -24,6 +24,9 @@ class Moota
     /**
      * Endpoint list
      */
+    const ENDPOINT_AUTH_LOGIN = '/api/v2/auth/login';
+    const ENDPOINT_AUTH_LOGOUT = '/api/v2/auth/logout';
+
     const ENDPOINT_MUTATION_INDEX = '/api/v2/mutation';
     const ENDPOINT_MUTATION_STORE = '/api/v2/mutation/store/';
     const ENDPOINT_MUTATION_NOTE = '/api/v2/mutation/{mutation_id}/note';

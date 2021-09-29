@@ -11,8 +11,8 @@ class UserResponse
     public function __construct(array $results)
     {
         unset($results['meta']);
-
-        if(! isset($results['user'])) {
+        if(isset($results['user'])) {
+            unset($results['user']['meta']);
             return $this->user = $results['user'];
         }
 

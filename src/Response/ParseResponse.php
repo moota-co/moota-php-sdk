@@ -20,7 +20,7 @@ class ParseResponse
 
         Moota::ENDPOINT_TOPUP_INDEX => 'Moota\Moota\Response\Topup\TopupResponse',
 
-        Moota::ENDPOINT_TRANSACTION_HISTORY => 'Moota\Moota\Response\Transaction\TransactionHistoryRespons',
+        Moota::ENDPOINT_TRANSACTION_HISTORY => 'Moota\Moota\Response\Transaction\TransactionHistoryResponse',
 
         Moota::ENDPOINT_USER_PROFILE => 'Moota\Moota\Response\User\UserResponse'
     ];

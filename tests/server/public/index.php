@@ -22,6 +22,30 @@ function build_response($request)
 }
 
 /**
+ * Start Mocking Authentication
+ */
+$app->router->post(Moota::ENDPOINT_AUTH_LOGIN, function () {
+    $request = app('request');
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Auth/MockAuthResponse.json');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json( $response ,  $request->header('Z-Status', 200) );
+});
+
+$app->router->post(Moota::ENDPOINT_AUTH_LOGOUT, function () {
+    $request = app('request');
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json( $response ,  $request->header('Z-Status', 200) );
+});
+
+/**
+ * End Mocking Authentication
+ */
+
+
+/**
  * Start Mocking Local Server Mutation
  */
 $app->router->get(Moota::ENDPOINT_MUTATION_INDEX, function () {
