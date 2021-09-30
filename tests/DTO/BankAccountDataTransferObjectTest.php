@@ -4,7 +4,7 @@ namespace Test\DTO;
 
 use PHPUnit\Framework\TestCase;
 
-class BankAccountDtoTest extends TestCase
+class BankAccountDataTransferObjectTest extends TestCase
 {
     public function testBankAccountStoreDataTransferObject()
     {
