@@ -66,7 +66,6 @@ class MutationDataTransferObjectTest extends TestCase
             '<mutation_id>',
             ['<tag_name_1>', '<tag_name_1>'],
         );
-
         $this->assertInstanceOf(\Moota\Moota\DTO\Mutation\MutationDetachTaggingData::class, $MutationDetachTaggingData);
     }
 
