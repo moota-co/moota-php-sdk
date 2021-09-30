@@ -18,8 +18,7 @@ class Moota
      *
      * @BASE_URL
      */
-//    const BASE_URL = 'https://app.moota.co';
-    const BASE_URL = 'http://moota.test';
+    const BASE_URL = 'https://app.moota.co';
 
     /**
      * Endpoint list
