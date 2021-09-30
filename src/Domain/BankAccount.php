@@ -3,6 +3,9 @@
 namespace Moota\Moota\Domain;
 
 use Moota\Moota\Config\Moota;
+use Moota\Moota\DTO\BankAccount\BankAccountEwalletOtpVerification;
+use Moota\Moota\DTO\BankAccount\BankAccountStoreData;
+use Moota\Moota\DTO\BankAccount\BankAccountUpdateData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Helper\Helper;
 use Moota\Moota\Response\BankAccount\BankAccountResponse;
@@ -13,6 +16,7 @@ class BankAccount
 {
     /**
      * Get List Bank Account
+     *
      * @return BankAccountResponse
      * @throws MootaException
      */
@@ -31,7 +35,13 @@ class BankAccount
             ->getBankData();
     }
 
-    public function storeBankAccount(array $payload)
+    /**
+     * Create new Bank Account
+     *
+     * @param BankAccountStoreData $bankAccountStoreData
+     * @throws MootaException
+     */
+    public function storeBankAccount(BankAccountStoreData $bankAccountStoreData) : BankAccountResponse
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_BANK_STORE;
 
@@ -40,28 +50,27 @@ class BankAccount
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $payload), $url
+            ])->post($url, $bankAccountStoreData->toArray()), $url
         ))
             ->getResponse()
             ->getBankData();
     }
 
     /**
-     * @param string $bank_id
-     * @param array $payload
-     * @return BankAccountResponse
+     * Update Bank Account Information
+     * @param BankAccountUpdateData
      * @throws MootaException
      */
-    public function updateBankAccount(string $bank_id, array $payload)
+    public function updateBankAccount(BankAccountUpdateData $bankAccountUpdateData): BankAccountResponse
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_UPDATE, $bank_id, '{bank_id}');
+        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_UPDATE, $bankAccountUpdateData->bank_id, '{bank_id}');
 
         return (new ParseResponse(
             Zttp::withHeaders([
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $payload), $url
+            ])->post($url, $bankAccountUpdateData->toArray()), $url
         ))
             ->getResponse()
             ->getBankData();
@@ -127,22 +136,21 @@ class BankAccount
     }
 
     /**
-     * @param string $bank_id
-     * @param array $payload
+     * Activate Ewallet Account with verification OTP Code
      *
-     * @return void
+     * @param BankAccountEwalletOtpVerification $bankAccountEwalletOtpVerification
      * @throws MootaException
      */
-    public function bankEwalletVerificationOTPCode(string $bank_id, array $payload)
+    public function bankEwalletVerificationOTPCode(BankAccountEwalletOtpVerification $bankAccountEwalletOtpVerification) : ParseResponse
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, $bank_id, '{bank_id}');
+        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, $bankAccountEwalletOtpVerification->bank_id, '{bank_id}');
 
         return (new ParseResponse(
             Zttp::withHeaders([
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $payload), $url
+            ])->post($url, $bankAccountEwalletOtpVerification->except('bank_id')->toArray()), $url
         ))
             ->getResponse();
     }

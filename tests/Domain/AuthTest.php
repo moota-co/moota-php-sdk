@@ -3,9 +3,6 @@
 namespace Test\Domain;
 
 use Moota\Moota\Config\Moota;
-use Moota\Moota\Domain\Auth;
-use Moota\Moota\DTO\Auth\LoginData;
-use Moota\Moota\DTO\Auth\ScopesData;
 use PHPUnit\Framework\TestCase;
 use Test\Request;
 use Test\server\ZttpServer;
