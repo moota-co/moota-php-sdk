@@ -1,6 +1,11 @@
 Moota-PHP-Sdk
 ===============
 
+
+[![PHP version](https://badge.fury.io/ph/moota.svg)](https://badge.fury.io/ph/mootaco/moota-php-sdk)
+[![Latest Stable Version](https://poser.pugx.org/mootaco/moota-php-sdk/v/stable)](https://packagist.org/packages/mootaco/moota-php-sdk)
+[![Monthly Downloads](https://poser.pugx.org/mootaco/moota-php-sdk/d/monthly)](https://packagist.org/packages/mootaco/moota-php-sdk)
+[![Total Downloads](https://poser.pugx.org/mootaco/moota-php-sdk/downloads)](https://packagist.org/packages/mootaco/moota-php-sdk)
 [Moota.co](https://moota.co) :heart: PHP Native!
 
 [<img src="https://moota-kops-state-store.s3.ap-southeast-1.amazonaws.com/moota-banner.jpeg" width="419px" />](https://spatie.be/github-ad-click/data-transfer-object)
