@@ -1,7 +1,7 @@
 Moota-PHP-Sdk
 ===============
 
-[Moota.co](https://moota.co) :heart: PHP!
+[Moota.co](https://moota.co) :heart: PHP Native!
 
 [<img src="https://moota-kops-state-store.s3.ap-southeast-1.amazonaws.com/moota-banner.jpeg" width="419px" />](https://spatie.be/github-ad-click/data-transfer-object)
 
