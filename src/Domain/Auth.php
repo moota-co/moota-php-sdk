@@ -15,7 +15,7 @@ class Auth
      *
      * @throws MootaException
      */
-    public function login(LoginData $authData): ParseResponse
+    public function login(LoginData $authData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_AUTH_LOGIN;
         $payload = array_merge($authData->toArray(), ['scopes' => array_keys(array_filter($authData->scopes->toArray()))]);
@@ -32,7 +32,7 @@ class Auth
      *
      * @throws MootaException
      */
-    public function logout(): ParseResponse
+    public function logout()
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_AUTH_LOGOUT;
 

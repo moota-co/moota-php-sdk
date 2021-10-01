@@ -20,7 +20,7 @@ class BankAccount
      * @return BankAccountResponse
      * @throws MootaException
      */
-    public function getBankList(): BankAccountResponse
+    public function getBankList()
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_BANK_INDEX;
 
@@ -41,7 +41,7 @@ class BankAccount
      * @param BankAccountStoreData $bankAccountStoreData
      * @throws MootaException
      */
-    public function storeBankAccount(BankAccountStoreData $bankAccountStoreData) : BankAccountResponse
+    public function storeBankAccount(BankAccountStoreData $bankAccountStoreData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_BANK_STORE;
 
@@ -61,7 +61,7 @@ class BankAccount
      * @param BankAccountUpdateData
      * @throws MootaException
      */
-    public function updateBankAccount(BankAccountUpdateData $bankAccountUpdateData): BankAccountResponse
+    public function updateBankAccount(BankAccountUpdateData $bankAccountUpdateData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_UPDATE, $bankAccountUpdateData->bank_id, '{bank_id}');
 
@@ -141,7 +141,7 @@ class BankAccount
      * @param BankAccountEwalletOtpVerification $bankAccountEwalletOtpVerification
      * @throws MootaException
      */
-    public function bankEwalletVerificationOTPCode(BankAccountEwalletOtpVerification $bankAccountEwalletOtpVerification) : ParseResponse
+    public function bankEwalletVerificationOTPCode(BankAccountEwalletOtpVerification $bankAccountEwalletOtpVerification)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, $bankAccountEwalletOtpVerification->bank_id, '{bank_id}');
 

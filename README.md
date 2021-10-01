@@ -61,7 +61,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 ```php
 // Set your API V2 Server Key 
-\Moota\Moota\Config::$ACCESS_TOKEN = '<your server key>';
+\Moota\Moota\Config\Moota::$ACCESS_TOKEN = '<your server key>';
 ```
 
 ### 2.2 Choose Class Method

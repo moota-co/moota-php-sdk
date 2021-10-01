@@ -22,7 +22,7 @@ class Tagging
      * @param TaggingQueryParameterData $taggingQueryParameterData
      * @throws MootaException
      */
-    public function getTaggings(TaggingQueryParameterData $taggingQueryParameterData): TaggingResponse
+    public function getTaggings(TaggingQueryParameterData $taggingQueryParameterData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TAGGING_INDEX;
 
@@ -43,7 +43,7 @@ class Tagging
      * @param TaggingStoreData $taggingStoreData
      * @throws MootaException
      */
-    public function storeTagging(TaggingStoreData $taggingStoreData) : TaggingResponse
+    public function storeTagging(TaggingStoreData $taggingStoreData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TAGGING_STORE;
 
@@ -64,7 +64,7 @@ class Tagging
      * @param TaggingUpdateData $taggingUpdateData
      * @throws MootaException
      */
-    public function updateTagging(TaggingUpdateData $taggingUpdateData) : ParseResponse
+    public function updateTagging(TaggingUpdateData $taggingUpdateData) 
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_TAGGING_UPDATE, $taggingUpdateData->tag_id, '{tag_id}');
 

@@ -26,7 +26,7 @@ class Mutation
      * @param MutationQueryParameterData $mutationQueryParameterData
      * @throws MootaException
      */
-    public function getMutations(MutationQueryParameterData $mutationQueryParameterData) : MutationResponse
+    public function getMutations(MutationQueryParameterData $mutationQueryParameterData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_INDEX;
 
@@ -37,8 +37,7 @@ class Mutation
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
             ])->get($url, array_filter($mutationQueryParameterData->toArray())), $url
         ))
-        ->getResponse()
-        ->getData();
+        ->getResponse()->getData();
     }
 
     /**
@@ -47,7 +46,7 @@ class Mutation
      * @param MutationStoreData $mutationStoreData
      * @throws MootaException
      */
-    public function storeMutation(MutationStoreData $mutationStoreData) : ParseResponse
+    public function storeMutation(MutationStoreData $mutationStoreData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_STORE . $mutationStoreData->bank_id;
 
@@ -67,7 +66,7 @@ class Mutation
      * @param MutationNoteData $mutationNoteData
      * @throws MutationException
      */
-    public function addNoteMutation(MutationNoteData $mutationNoteData) : ParseResponse
+    public function addNoteMutation(MutationNoteData $mutationNoteData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_MUTATION_NOTE, $mutationNoteData->mutation_id, '{mutation_id}');
 
@@ -87,7 +86,7 @@ class Mutation
      * @param string $mutation_id
      * @throws MootaException
      */
-    public function pushWebhookByMutation(string $mutation_id) : ParseResponse
+    public function pushWebhookByMutation(string $mutation_id)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK, $mutation_id, '{mutation_id}');
 
@@ -107,7 +106,7 @@ class Mutation
      * @param MutationDestroyData $mutationDestroyData
      * @throws MootaException
      */
-    public function destroyMutation(MutationDestroyData $mutationDestroyData) : ParseResponse
+    public function destroyMutation(MutationDestroyData $mutationDestroyData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_DESTROY;
 
@@ -127,7 +126,7 @@ class Mutation
      * @param MutationAttachTaggingData $mutationAttachTaggingData
      * @throws MootaException
      */
-    public function attachTagMutation(MutationAttachTaggingData $mutationAttachTaggingData) : ParseResponse
+    public function attachTagMutation(MutationAttachTaggingData $mutationAttachTaggingData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutationAttachTaggingData->mutation_id, '{mutation_id}');
         return (new ParseResponse(
@@ -146,7 +145,7 @@ class Mutation
      * @param MutationDetachTaggingData $mutationDetachTaggingData
      * @throws MootaException
      */
-    public function detachTagMutation(MutationDetachTaggingData $mutationDetachTaggingData): ParseResponse
+    public function detachTagMutation(MutationDetachTaggingData $mutationDetachTaggingData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_DETACH_TAGGING_MUTATION, $mutationDetachTaggingData->mutation_id, '{mutation_id}');
         return (new ParseResponse(
@@ -165,7 +164,7 @@ class Mutation
      * @param MutationUpdateTaggingData $mutationUpdateTaggingData
      * @throws MootaException
      */
-    public function updateTagMutation(MutationUpdateTaggingData $mutationUpdateTaggingData): ParseResponse
+    public function updateTagMutation(MutationUpdateTaggingData $mutationUpdateTaggingData)
     {
         $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutationUpdateTaggingData->mutation_id, '{mutation_id}');
         return (new ParseResponse(

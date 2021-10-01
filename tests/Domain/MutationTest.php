@@ -32,8 +32,6 @@ class MutationTest extends TestCase
 
     public function testGetMutationResponse()
     {
-        Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-
         $params = [
             'type'          => 'CR',
             'bank'          => 'klasdoi',

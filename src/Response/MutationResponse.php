@@ -6,7 +6,7 @@ namespace Moota\Moota\Response;
 
 class MutationResponse
 {
-    private $data;
+    private array $data;
 
     public function __construct(array $result)
     {

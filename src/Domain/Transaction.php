@@ -16,7 +16,7 @@ class Transaction
      *
      * @throws MootaException
      */
-    public function getHistoryTransactionPoint(TransactionHistoryData $historyTransactionData): TransactionHistoryResponse
+    public function getHistoryTransactionPoint(TransactionHistoryData $historyTransactionData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TRANSACTION_HISTORY;
 

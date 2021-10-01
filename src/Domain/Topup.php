@@ -20,7 +20,7 @@ class Topup
      *
      * @throws MootaException
      */
-    public function getPaymentMethod(): ParseResponse
+    public function getPaymentMethod()
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_PAYMENT_METHOD;
 
@@ -39,7 +39,7 @@ class Topup
      *
      * @throws MootaException
      */
-    public function getListAmountPoint() : ParseResponse
+    public function getListAmountPoint()
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TOPUP_DENOM;
 
@@ -61,7 +61,7 @@ class Topup
      * @return TopupResponse
      * @throws MootaException
      */
-    public function getListTopupPoint(int $page = 1): TopupResponse
+    public function getListTopupPoint(int $page = 1)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TOPUP_INDEX;
 
@@ -80,10 +80,9 @@ class Topup
      * Create Topup Point
      *
      * @param CreateTopupData $createTopupData
-     * @return mixed
      * @throws MootaException
      */
-    public function createTopupPoint(CreateTopupData $createTopupData): mixed
+    public function createTopupPoint(CreateTopupData $createTopupData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TOPUP_STORE;
 

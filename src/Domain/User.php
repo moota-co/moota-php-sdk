@@ -16,7 +16,7 @@ class User
      *
      * @throws MootaException
      */
-    public function getProfile() : UserResponse
+    public function getProfile()
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_USER_PROFILE;
 
@@ -38,7 +38,7 @@ class User
      * @return UserResponse
      * @throws MootaException
      */
-    public function updateProfile(UserUpdateData $userUpdateData) : UserResponse
+    public function updateProfile(UserUpdateData $userUpdateData)
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_USER_PROFILE_UPDATE;
         $paylod = array_filter($userUpdateData->toArray());
