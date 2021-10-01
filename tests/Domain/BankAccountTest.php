@@ -16,7 +16,6 @@ class BankAccountTest extends TestCase
 {
     public static function setUpBeforeClass(): void
     {
-
         ZttpServer::start();
     }
 
@@ -28,7 +27,7 @@ class BankAccountTest extends TestCase
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals(
-            $response->json(),
+            $response->json()['data'],
             (new ParseResponse($response, Moota::ENDPOINT_BANK_INDEX))->getResponse()->getBankData()
         );
     }

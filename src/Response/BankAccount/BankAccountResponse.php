@@ -10,7 +10,10 @@ class BankAccountResponse
 
     public function __construct($results)
     {
-        $this->bank_accounts = $results;
+        if(isset($results['bank'])) {
+            return $this->bank_accounts = $results;
+        }
+        $this->bank_accounts = $results['data'];
     }
 
     public function getBankData()

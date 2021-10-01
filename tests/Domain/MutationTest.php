@@ -57,7 +57,7 @@ class MutationTest extends TestCase
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals(
-            $response->json(),
+            $response->json()['data'],
             (new ParseResponse($response, Moota::ENDPOINT_MUTATION_INDEX))->getResponse()->getData()
         );
     }

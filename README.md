@@ -3,8 +3,14 @@ Moota-PHP-Sdk
 
 [Moota.co](https://moota.co) :heart: PHP!
 
+[<img src="https://moota-kops-state-store.s3.ap-southeast-1.amazonaws.com/moota-banner.jpeg" width="419px" />](https://spatie.be/github-ad-click/data-transfer-object)
+
+
 This is the Official PHP wrapper/library for Moota API V2, that is compatible with Composer.
 Visit [https://moota.co](https://moota.co) for more information about the product.
+
+## Support us [Data Trasnfer Object](https://github.com/spatie/data-transfer-object)
+* **Note**: of this package only supports `php:^8.0`
 
 ## 1. Installation
 
@@ -376,3 +382,19 @@ try {
 }
 
 ```
+
+
+## Unit Test
+
+### All Test
+`./vendor/bin/phpunit`
+
+### Specific Test
+`./vendor/bin/phpunit --filter methodname`
+
+## Contributing
+
+
+## Questions?
+
+If you have any questions please [open an issue](https://github.com/moota-co/moota-php-sdk/issues/new).
