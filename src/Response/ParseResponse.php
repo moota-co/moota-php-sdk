@@ -38,11 +38,12 @@ class ParseResponse
         $parts = parse_url($url);
 
         if(! $results->isOk() ) {
+            $error_message = $results->json()['message'] ?? $results->json()['error'];
             if( isset($this->exceptionClass[$parts['path']]) ) {
-                throw new $this->exceptionClass[$parts['path']]($results->json()['message'], $results->status(), null, $results->json());
+                throw new $this->exceptionClass[$parts['path']]($error_message, $results->status(), null, $results->json());
             }
 
-            throw new MootaException($results->json()['message'], $results->status(), null, $results->json());
+            throw new MootaException($error_message, $results->status(), null, $results->json());
         }
 
         if(! isset($this->responseClass[$parts['path']])) {
