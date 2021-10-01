@@ -18,10 +18,9 @@ class Topup
     /**
      * Get list payment method | targeting bank account topup point
      *
-     * @return void
      * @throws MootaException
      */
-    public function getPaymentMethod()
+    public function getPaymentMethod(): ParseResponse
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_PAYMENT_METHOD;
 
@@ -38,10 +37,9 @@ class Topup
     /**
      * Get List Amounts Point | minimum and maximum point can topup
      *
-     * @return void
      * @throws MootaException
      */
-    public function getListAmountPoint()
+    public function getListAmountPoint() : ParseResponse
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TOPUP_DENOM;
 

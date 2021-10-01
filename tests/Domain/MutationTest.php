@@ -4,6 +4,8 @@
 namespace Test\Domain;
 
 use Moota\Moota\Config\Moota;
+use Moota\Moota\Domain\Mutation;
+use Moota\Moota\DTO\Mutation\MutationQueryParameterData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Exception\Mutation\MutationException;
 use Moota\Moota\Helper\Helper;
@@ -31,6 +33,7 @@ class MutationTest extends TestCase
     public function testGetMutationResponse()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
+
         $params = [
             'type'          => 'CR',
             'bank'          => 'klasdoi',

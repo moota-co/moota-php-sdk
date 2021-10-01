@@ -16,7 +16,13 @@ use Zttp\Zttp;
 
 class Tagging
 {
-    public function getTaggings(TaggingQueryParameterData $taggingQueryParameterData)
+    /**
+     * Get my tagging list
+     *
+     * @param TaggingQueryParameterData $taggingQueryParameterData
+     * @throws MootaException
+     */
+    public function getTaggings(TaggingQueryParameterData $taggingQueryParameterData): TaggingResponse
     {
         $url = Moota::BASE_URL . Moota::ENDPOINT_TAGGING_INDEX;
 
