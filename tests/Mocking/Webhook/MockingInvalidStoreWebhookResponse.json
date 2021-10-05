@@ -1,0 +1,11 @@
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "bank_account_id": [
+      "The selected bank account id is invalid."
+    ],
+    "kinds": [
+      "The selected kinds is invalid."
+    ]
+  }
+}

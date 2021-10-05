@@ -1,0 +1,62 @@
+{
+  "current_page": 1,
+  "data": [
+    {
+      "id": 2,
+      "user_id": 1,
+      "bank_account_id": "",
+      "type": "all",
+      "url": "http://moota.test/integrations/webhook",
+      "secret_token": "H7DboYtO",
+      "start_unique_code": "0",
+      "end_unique_code": "999",
+      "kinds": "both",
+      "created_at": "2021-10-04T07:38:42.000000Z",
+      "updated_at": "2021-10-04T07:38:42.000000Z",
+      "token": "e42qjy2WGE5",
+      "webhook_id": "e42qjy2WGE5"
+    },
+    {
+      "id": 1,
+      "user_id": 1,
+      "bank_account_id": "VLagzqBj42D",
+      "type": "single",
+      "url": "http://moota.test/webhook",
+      "secret_token": "FcZnoVBN",
+      "start_unique_code": "0",
+      "end_unique_code": "999",
+      "kinds": "credit",
+      "created_at": "2021-10-04T06:10:32.000000Z",
+      "updated_at": "2021-10-04T06:10:32.000000Z",
+      "token": "VLagzqBj42D",
+      "webhook_id": "VLagzqBj42D"
+    }
+  ],
+  "first_page_url": "http://moota.test/api/v2/integration/webhook?page=1",
+  "from": 1,
+  "last_page": 1,
+  "last_page_url": "http://moota.test/api/v2/integration/webhook?page=1",
+  "links": [
+    {
+      "url": null,
+      "label": "Sebelumnya",
+      "active": false
+    },
+    {
+      "url": "http://moota.test/api/v2/integration/webhook?page=1",
+      "label": "1",
+      "active": true
+    },
+    {
+      "url": null,
+      "label": "Selanjutnya",
+      "active": false
+    }
+  ],
+  "next_page_url": null,
+  "path": "http://moota.test/api/v2/integration/webhook",
+  "per_page": 15,
+  "prev_page_url": null,
+  "to": 2,
+  "total": 2
+}

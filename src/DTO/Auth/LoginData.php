@@ -6,9 +6,10 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class LoginData extends DataTransferObject
 {
-    public function __construct(
-        public string $email,
-        public string $password,
-        public ScopesData $scopes
-    ) { }
+    /** @var string */
+    public $email;
+    /** @var string */
+    public $password;
+//    /** @var ScopesData */
+    public $scopes;
 }

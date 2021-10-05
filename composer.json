@@ -3,7 +3,7 @@
     "description": "Moota PHP SDK",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "Rezza Kurniawan",
@@ -16,11 +16,11 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "8.0.*",
+        "php": ">=7.1",
         "ext-curl": "*",
         "ext-json": "*",
         "kitetail/zttp": "^0.6.0",
-        "spatie/data-transfer-object": "^3.7"
+        "spatie/data-transfer-object": "^1.0"
     },
     "autoload": {
         "psr-4": {

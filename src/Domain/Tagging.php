@@ -11,7 +11,6 @@ use Moota\Moota\DTO\Tagging\TaggingUpdateData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Helper\Helper;
 use Moota\Moota\Response\ParseResponse;
-use Moota\Moota\Response\Tagging\TaggingResponse;
 use Zttp\Zttp;
 
 class Tagging

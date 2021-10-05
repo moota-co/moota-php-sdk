@@ -4,6 +4,7 @@
 namespace Test\Domain;
 
 use Moota\Moota\Config\Moota;
+use Moota\Moota\DTO\Transaction\TransactionHistoryData;
 use PHPUnit\Framework\TestCase;
 use Test\Request;
 use Test\server\ZttpServer;
@@ -19,13 +20,13 @@ class TransactionTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
 
-        $query_param = [
+        $query_param = new TransactionHistoryData([
             'page' => 1,
             'start_date' => '',
             'end_date' => ''
-        ];
+        ]);
 
-        $response = Request::get(Moota::ENDPOINT_TRANSACTION_HISTORY, $query_param);
+        $response = Request::get(Moota::ENDPOINT_TRANSACTION_HISTORY, $query_param->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals(

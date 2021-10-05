@@ -9,9 +9,10 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TransactionHistoryData extends DataTransferObject
 {
-    public function __construct(
-        public int $page = 1,
-        public string $start_date = '',
-        public string $end_date = ''
-    ){ }
+    /** @var int  */
+    public $page = 1;
+    /** @var string  */
+    public $start_date = '';
+    /** @var string  */
+    public $end_date = '';
 }

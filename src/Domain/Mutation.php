@@ -13,7 +13,6 @@ use Moota\Moota\DTO\Mutation\MutationUpdateTaggingData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Exception\Mutation\MutationException;
 use Moota\Moota\Helper\Helper;
-use Moota\Moota\Response\MutationResponse;
 use Moota\Moota\Response\ParseResponse;
 use Zttp\Zttp;
 

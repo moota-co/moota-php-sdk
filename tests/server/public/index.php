@@ -418,6 +418,53 @@ $app->router->post(Moota::ENDPOINT_USER_PROFILE_UPDATE, function () {
  */
 
 
+/**
+ * Start Mocking Server webhook
+ */
+
+$app->router->get(Moota::ENDPOINT_WEBHOOK_INDEX, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Webhook/MockingWebhookIndexResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+
+    return response()->json($response,  $request->header('Z-Status', 200));
+});
+
+$app->router->post(Moota::ENDPOINT_WEBHOOK_STORE, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/MockRequestSuccessResponse.json');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Webhook/MockingInvalidStoreWebhookResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    if( $request->all()['kinds'] != 'credit' ) {
+        $status = 422;
+        $response = json_decode($mock_fail_response, true);
+    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+
+$app->router->get(Helper::replace_uri_with_id( Moota::ENDPOINT_WEBHOOK_HISTORY, 'hash_webhook_id', '{webhook_id}'), function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Webhook/MockingWebhookHistoryResponse.json');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Webhook/MockingInvalidStoreWebhookResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+//    if( $request->all()['kinds'] != 'credit' ) {
+//        $status = 422;
+//        $response = json_decode($mock_fail_response, true);
+//    }
+
+    return response()->json($response,  $request->header('Z-Status', $status));
+});
+/**
+ * End Mocking Server webhook
+ */
+
+
+
 $app->router->patch('/patch', function () {
     return build_response(app('request'));
 });

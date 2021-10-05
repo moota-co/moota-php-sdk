@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class BankAccountEwalletOtpVerification extends DataTransferObject
 {
-    public function __construct(
-        public string $bank_id,
-        public string $otp_code
-    ) { }
+    /** @var string  */
+    public $bank_id;
+    /** @var string  */
+    public $otp_code;
 }

@@ -6,7 +6,6 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class MutationDestroyData extends DataTransferObject
 {
-    public function __construct(
-        public array $mutations
-    ) { }
+    /** @var array  */
+    public $mutations;
 }

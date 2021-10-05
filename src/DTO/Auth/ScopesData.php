@@ -6,13 +6,18 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class ScopesData extends DataTransferObject
 {
-    public function __construct(
-        public bool $api = false,
-        public bool $user = false,
-        public bool $user_read = false,
-        public bool $bank = false,
-        public bool $bank_read = false,
-        public bool $mutation = false,
-        public bool $mutation_read = false,
-    ){ }
+    /** @var bool  */
+    public $api = false;
+    /** @var bool  */
+    public $user = false;
+    /** @var bool  */
+    public $user_read = false;
+    /** @var bool  */
+    public $bank = false;
+    /** @var bool  */
+    public $bank_read = false;
+    /** @var bool  */
+    public $mutation = false;
+    /** @var bool  */
+    public $mutation_read = false;
 }

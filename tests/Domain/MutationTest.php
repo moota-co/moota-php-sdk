@@ -5,7 +5,13 @@ namespace Test\Domain;
 
 use Moota\Moota\Config\Moota;
 use Moota\Moota\Domain\Mutation;
+use Moota\Moota\DTO\Mutation\MutationAttachTaggingData;
+use Moota\Moota\DTO\Mutation\MutationDestroyData;
+use Moota\Moota\DTO\Mutation\MutationDetachTaggingData;
+use Moota\Moota\DTO\Mutation\MutationNoteData;
 use Moota\Moota\DTO\Mutation\MutationQueryParameterData;
+use Moota\Moota\DTO\Mutation\MutationStoreData;
+use Moota\Moota\DTO\Mutation\MutationUpdateTaggingData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Exception\Mutation\MutationException;
 use Moota\Moota\Helper\Helper;
@@ -32,7 +38,7 @@ class MutationTest extends TestCase
 
     public function testGetMutationResponse()
     {
-        $params = [
+        $params = new MutationQueryParameterData([
             'type'          => 'CR',
             'bank'          => 'klasdoi',
             'amount'        => '100012',
@@ -44,14 +50,14 @@ class MutationTest extends TestCase
             'tag'           => 'tag_1,tag_2',
             'page'          => 1,
             'per_page'      => 20
-        ];
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-        ->get($this->url(Moota::ENDPOINT_MUTATION_INDEX), $params);
+        ->get($this->url(Moota::ENDPOINT_MUTATION_INDEX), $params->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals(
@@ -63,9 +69,9 @@ class MutationTest extends TestCase
     public function testFailedGetMutationWithBankNotFound()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $params = [
+        $params = new MutationQueryParameterData([
             'type'          => 'CR',
-            'bank'          => 1,
+            'bank'          => '1',
             'amount'        => '100012',
             'description'   => 'Test Mutations',
             'note'          => '',
@@ -75,14 +81,14 @@ class MutationTest extends TestCase
             'tag'           => 'tag_1,tag_2',
             'page'          => 1,
             'per_page'      => 20
-        ];
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->get($this->url(Moota::ENDPOINT_MUTATION_INDEX), $params);
+            ->get($this->url(Moota::ENDPOINT_MUTATION_INDEX), $params->toArray());
 
         $this->expectException(MutationException::class);
         $this->assertTrue($response->status() === 404);
@@ -92,19 +98,20 @@ class MutationTest extends TestCase
     public function testStoreMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = [
-          'date'    => '2021-09-21',
-          'note'    => 'Testing Note Mutation',
-          'amount'  => '2000123',
-          'type'    => 'CR'
-        ];
+        $payload = new MutationStoreData([
+            'bank_id' => 'asdasd',
+            'date'    => '2021-09-21',
+            'note'    => 'Testing Note Mutation',
+            'amount'  => '2000123',
+            'type'    => 'CR'
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Moota::ENDPOINT_MUTATION_STORE), $payload);
+            ->post($this->url(Moota::ENDPOINT_MUTATION_STORE), $payload->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals([
@@ -119,19 +126,20 @@ class MutationTest extends TestCase
     public function testFailedStoreMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = [
+        $payload = new MutationStoreData([
+            'bank_id' => 'asdansd',
             'date'    => '2021-09-21',
             'note'    => 'Testing Note Mutation',
             'amount'  => '2000123',
             'type'    => ''
-        ];
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Moota::ENDPOINT_MUTATION_STORE), $payload);
+            ->post($this->url(Moota::ENDPOINT_MUTATION_STORE), $payload->toArray());
 
         $this->assertTrue($response->status() === 422);
         $this->expectException(MutationException::class);
@@ -141,16 +149,17 @@ class MutationTest extends TestCase
     public function testAddNoteToMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = [
+        $payload = new MutationNoteData([
+            'mutation_id' => 'hash_mutation_id',
             'note'    => 'Testing Note Mutation',
-        ];
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, 'hash_mutation_id', '{mutation_id}')), $payload);
+            ->post($this->url(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, $payload->mutation_id, '{mutation_id}')), $payload->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals($response->json(), (new ParseResponse($response, Moota::ENDPOINT_MUTATION_NOTE))->getResponse());
@@ -159,16 +168,16 @@ class MutationTest extends TestCase
     public function testFailAddNoteMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = [
+        $payload = new MutationNoteData([
+            'mutation_id' => '1',
             'note'    => 'Testing Note Mutation',
-        ];
-
+        ]);
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, 1, '{mutation_id}')), $payload);
+            ->post($this->url(Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_NOTE, $payload->mutation_id, '{mutation_id}')), $payload->toArray());
 
         $this->assertNotTrue($response->status(), 200);
         $this->expectException(MootaException::class);
@@ -211,14 +220,16 @@ class MutationTest extends TestCase
     public function testdestroyMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_ids['mutations'] = ["hash_mutation_id", "hash_mutation_id"];
+        $mutation_ids = new MutationDestroyData([
+            'mutations' => ["hash_mutation_id", "hash_mutation_id"]
+        ]);
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Moota::ENDPOINT_MUTATION_DESTROY), $mutation_ids);
+            ->post($this->url(Moota::ENDPOINT_MUTATION_DESTROY), $mutation_ids->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals($response->json(), (new ParseResponse($response, Moota::ENDPOINT_MUTATION_DESTROY))->getResponse());
@@ -227,14 +238,15 @@ class MutationTest extends TestCase
     public function testFaildestroyMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_ids['mutations'] = ["abcdefg", "efgh"];
-
+        $mutation_ids = new MutationDestroyData([
+            'mutations' => ["abcdefg", "efgh"]
+        ]);
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url(Moota::ENDPOINT_MUTATION_DESTROY), $mutation_ids);
+            ->post($this->url(Moota::ENDPOINT_MUTATION_DESTROY), $mutation_ids->toArray());
 
         $this->assertTrue($response->status() === 500);
         $this->expectException(MutationException::class);
@@ -244,8 +256,9 @@ class MutationTest extends TestCase
     public function testFaildestroyMutationWithWrongRequestPayload()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_ids['mutations'] = [];
-
+        $mutation_ids = new MutationDestroyData([
+            'mutations' => []
+        ]);
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
@@ -261,20 +274,20 @@ class MutationTest extends TestCase
     public function testAttachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_id = '8aolk43WJxM';
-        $payload = [
+        $payload = new MutationAttachTaggingData([
+            "mutation_id" => '8aolk43WJxM',
             "name" => [
                 "assurance", "..."
             ]
-        ];
+        ]);
 
-        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-        ->post($this->url($url), $payload);
+        ->post($this->url($url), $payload->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals($response->json(), (new ParseResponse($response, Moota::ENDPOINT_MUTATION_DESTROY))->getResponse());
@@ -283,20 +296,20 @@ class MutationTest extends TestCase
     public function testFailAttachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_id = '8aolk43WJxM';
-        $payload = [
+        $payload = new MutationAttachTaggingData([
+            "mutation_id" => '8aolk43WJxM',
             "name" => [
                 "assurance-car", "..."
             ]
-        ];
+        ]);
 
-        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url($url), $payload);
+            ->post($this->url($url), $payload->toArray());
 
         $this->assertTrue($response->status() === 422);
         $this->expectException(MootaException::class);
@@ -306,20 +319,20 @@ class MutationTest extends TestCase
     public function testUpdateTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_id = '8aolk43WJxM';
-        $payload = [
+        $payload = new MutationUpdateTaggingData([
+            "mutation_id" => '8aolk43WJxM',
             "name" => [
                 "assurance", "..."
             ]
-        ];
+        ]);
 
-        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->post($this->url($url), $payload);
+            ->post($this->url($url), $payload->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals($response->json(), (new ParseResponse($response, Moota::ENDPOINT_UPDATE_TAGGING_MUTATION))->getResponse());
@@ -328,20 +341,20 @@ class MutationTest extends TestCase
     public function testDetachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_id = '8aolk43WJxM';
-        $payload = [
+        $payload = new MutationDetachTaggingData([
+            "mutation_id" => '8aolk43WJxM',
             "name" => [
                 "assurance", "..."
             ]
-        ];
+        ]);
 
-        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_DETACH_TAGGING_MUTATION, $mutation_id, '{mutation_id}');
+        $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
             'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
         ])
-            ->delete($this->url($url), $payload);
+            ->post($this->url($url), $payload->toArray());
 
         $this->assertTrue($response->status() === 200);
         $this->assertEquals($response->json(), (new ParseResponse($response, Moota::ENDPOINT_DETACH_TAGGING_MUTATION))->getResponse());

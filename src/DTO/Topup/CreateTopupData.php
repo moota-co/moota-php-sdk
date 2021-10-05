@@ -8,8 +8,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class CreateTopupData extends DataTransferObject
 {
-    public function __construct(
-        public int $amount,
-        public string $payment_method
-    ){ }
+    /** @var int  */
+    public $amount;
+    /** @var string  */
+    public $payment_method;
 }

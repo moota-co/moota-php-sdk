@@ -6,7 +6,6 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TaggingStoreData extends DataTransferObject
 {
-    public function __construct(
-        public string $name
-    ) { }
+    /** @var string  */
+    public $name;
 }

@@ -7,7 +7,7 @@ namespace Moota\Moota\Config;
 class Moota
 {
     /**
-     * Secret token anda untuk authentikasi
+     * Access token authentikasi
      *
      * @access_token
      */
@@ -59,6 +59,11 @@ class Moota
     
     const ENDPOINT_USER_PROFILE = '/api/v2/user';
     const ENDPOINT_USER_PROFILE_UPDATE = '/api/v2/user';
+
+    const ENDPOINT_WEBHOOK_INDEX = '/api/v2/integration/webhook';
+    const ENDPOINT_WEBHOOK_STORE = '/api/v2/integration/webhook';
+    const ENDPOINT_WEBHOOK_DESTROY = '/api/v2/integration/webhook/{webhook_id}';
+    const ENDPOINT_WEBHOOK_HISTORY = '/api/v2/integration/webhook/history/{webhook_id}';
     
     const BANK_TYPES = [
         "bca",

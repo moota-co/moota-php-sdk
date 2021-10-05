@@ -50,7 +50,7 @@ class BankAccount
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $bankAccountStoreData->toArray()), $url
+            ])->post($url, array_filter($bankAccountStoreData->toArray())), $url
         ))
             ->getResponse()
             ->getBankData();
@@ -70,7 +70,7 @@ class BankAccount
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $bankAccountUpdateData->toArray()), $url
+            ])->post($url, array_filter($bankAccountUpdateData->toArray())), $url
         ))
             ->getResponse()
             ->getBankData();
@@ -150,7 +150,7 @@ class BankAccount
                 'User-Agent'        => 'Moota/2.0',
                 'Accept'            => 'application/json',
                 'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $bankAccountEwalletOtpVerification->except('bank_id')->toArray()), $url
+            ])->post($url, array_filter($bankAccountEwalletOtpVerification->except('bank_id')->toArray())), $url
         ))
             ->getResponse();
     }

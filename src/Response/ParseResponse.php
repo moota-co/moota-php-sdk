@@ -22,7 +22,10 @@ class ParseResponse
 
         Moota::ENDPOINT_TRANSACTION_HISTORY => 'Moota\Moota\Response\Transaction\TransactionHistoryResponse',
 
-        Moota::ENDPOINT_USER_PROFILE => 'Moota\Moota\Response\User\UserResponse'
+        Moota::ENDPOINT_USER_PROFILE => 'Moota\Moota\Response\User\UserResponse',
+
+        Moota::ENDPOINT_WEBHOOK_INDEX => 'Moota\Moota\Response\Webhook\WebhookIndexResponse',
+        Moota::ENDPOINT_WEBHOOK_HISTORY => 'Moota\Moota\Response\Webhook\WebhookIndexResponse'
     ];
 
     public array $exceptionClass = [
