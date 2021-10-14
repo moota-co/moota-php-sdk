@@ -8,9 +8,7 @@ Moota-PHP-Sdk
 [![Monthly Downloads](https://poser.pugx.org/mootaco/moota-php-sdk/d/monthly)](https://packagist.org/packages/mootaco/moota-php-sdk)
 [![Total Downloads](https://poser.pugx.org/mootaco/moota-php-sdk/downloads)](https://packagist.org/packages/mootaco/moota-php-sdk)
 
-[<img src="https://moota-kops-state-store.s3.ap-southeast-1.amazonaws.com/moota-banner.jpeg" width="419px" />](https://app.moota.co)
-
-
+[<img src="https://github.com/moota-co/moota-php-sdk/blob/master/tests/Mocking/img/moota-php-sdk.png" width="419px" />](https://app.moota.co)
 This is the Official PHP wrapper/library for Moota API V2, that is compatible with Composer.
 Visit [https://moota.co](https://moota.co) for more information about the product.
 
