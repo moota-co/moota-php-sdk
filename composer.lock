@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82b2cc265fbc9e548a225d3589dd7309",
+    "content-hash": "48c3ff4dc043ba26852695a10cef5046",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -356,24 +356,29 @@
         },
         {
             "name": "spatie/data-transfer-object",
-            "version": "1.14.0",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/data-transfer-object.git",
-                "reference": "1d38761b13732ce9cddf358a552fdfd3eaac0efc"
+                "reference": "56fcac4ba39c9307a9514d49d3435f8a48409bee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/1d38761b13732ce9cddf358a552fdfd3eaac0efc",
-                "reference": "1d38761b13732ce9cddf358a552fdfd3eaac0efc",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/56fcac4ba39c9307a9514d49d3435f8a48409bee",
+                "reference": "56fcac4ba39c9307a9514d49d3435f8a48409bee",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1|^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
+                "illuminate/collections": "^8.36",
+                "jetbrains/phpstorm-attributes": "^1.0",
                 "larapack/dd": "^1.1",
-                "phpunit/phpunit": "^7.0|^9.0"
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "phpstan/phpstan": "Take advantage of checkUninitializedProperties with \\Spatie\\DataTransferObject\\PHPstan\\PropertiesAreAlwaysInitializedExtension"
             },
             "type": "library",
             "autoload": {
@@ -401,7 +406,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/data-transfer-object/issues",
-                "source": "https://github.com/spatie/data-transfer-object/tree/1.14.0"
+                "source": "https://github.com/spatie/data-transfer-object/tree/3.7.2"
             },
             "funding": [
                 {
@@ -413,7 +418,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-31T06:13:17+00:00"
+            "time": "2021-09-17T04:04:12+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
