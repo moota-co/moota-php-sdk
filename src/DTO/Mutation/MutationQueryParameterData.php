@@ -6,26 +6,17 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class MutationQueryParameterData extends DataTransferObject
 {
-    /** @var string  */
-    public $type = '';
-    /** @var string  */
-    public $bank = '';
-    /** @var string  */
-    public $amount = '';
-    /** @var string  */
-    public $description = '';
-    /** @var string  */
-    public $note = '';
-    /** @var string  */
-    public $date = '';
-    /** @var string  */
-    public $start_date = '';
-    /** @var string  */
-    public $end_date = '';
-    /** @var string  */
-    public $tag = '';
-    /** @var int */
-    public $page = 1;
-    /** @var int  */
-    public $per_page = 20;
+    public function __construct(
+        public null|string $type = '',
+        public null|string $bank = '',
+        public null|string $amount = '',
+        public null|string $description = '',
+        public null|string $note = '',
+        public null|string $date = '',
+        public null|string $start_date = '',
+        public null|string $end_date = '',
+        public null|string $tag = '',
+        public int $page = 1,
+        public int $per_page = 20,
+    ) { }
 }

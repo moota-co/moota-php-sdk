@@ -6,12 +6,11 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class WebhookQueryParameterData extends DataTransferObject
 {
-    /** @var string  */
-    public $url = '';
-    /** @var string  */
-    public $bank_account_id = '';
-    /** @var int  */
-    public $page = 1;
-    /** @var int  */
-    public $per_page = 20;
+
+    public function __construct(
+        public string $url = '',
+        public string $bank_account_id = '',
+        public int $page = 1,
+        public int $per_page = 20,
+    ) { }
 }

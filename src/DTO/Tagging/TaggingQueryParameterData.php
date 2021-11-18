@@ -6,6 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TaggingQueryParameterData extends DataTransferObject
 {
-    /** @var array  */
-    public $tag = [];
+    public function __construct(
+        public array $tag = []
+    ){ }
 }

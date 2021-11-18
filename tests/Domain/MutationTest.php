@@ -38,19 +38,19 @@ class MutationTest extends TestCase
 
     public function testGetMutationResponse()
     {
-        $params = new MutationQueryParameterData([
-            'type'          => 'CR',
-            'bank'          => 'klasdoi',
-            'amount'        => '100012',
-            'description'   => 'Test Mutations',
-            'note'          => '',
-            'date'          => '',
-            'start_date'    => '2021-09-22',
-            'end_date'      => '2020-09-23',
-            'tag'           => 'tag_1,tag_2',
-            'page'          => 1,
-            'per_page'      => 20
-        ]);
+        $params = new MutationQueryParameterData(
+            'CR',
+            'klasdoi',
+            '100012',
+             'Test Mutations',
+            '',
+            '',
+            '2021-09-22',
+            '2020-09-23',
+            'tag_1,tag_2',
+             1,
+             20
+        );
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -69,19 +69,19 @@ class MutationTest extends TestCase
     public function testFailedGetMutationWithBankNotFound()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $params = new MutationQueryParameterData([
-            'type'          => 'CR',
-            'bank'          => '1',
-            'amount'        => '100012',
-            'description'   => 'Test Mutations',
-            'note'          => '',
-            'date'          => '',
-            'start_date'    => '2021-09-22',
-            'end_date'      => '2020-09-23',
-            'tag'           => 'tag_1,tag_2',
-            'page'          => 1,
-            'per_page'      => 20
-        ]);
+        $params = new MutationQueryParameterData(
+            'CR',
+            '1',
+            '100012',
+            'Test Mutations',
+            '',
+            '',
+            '2021-09-22',
+            '2020-09-23',
+            'tag_1,tag_2',
+            1,
+            20
+        );
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -98,13 +98,13 @@ class MutationTest extends TestCase
     public function testStoreMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationStoreData([
-            'bank_id' => 'asdasd',
-            'date'    => '2021-09-21',
-            'note'    => 'Testing Note Mutation',
-            'amount'  => '2000123',
-            'type'    => 'CR'
-        ]);
+        $payload = new MutationStoreData(
+            'asdasd',
+            '2021-09-21',
+            'Testing Note Mutation',
+             '2000123',
+             'CR'
+        );
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -126,13 +126,14 @@ class MutationTest extends TestCase
     public function testFailedStoreMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationStoreData([
-            'bank_id' => 'asdansd',
-            'date'    => '2021-09-21',
-            'note'    => 'Testing Note Mutation',
-            'amount'  => '2000123',
-            'type'    => ''
-        ]);
+        $payload = new MutationStoreData(
+            'asdansd',
+            '2021-09-21',
+            '2000123',
+            '',
+            'Testing Note Mutation',
+
+        );
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -149,10 +150,7 @@ class MutationTest extends TestCase
     public function testAddNoteToMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationNoteData([
-            'mutation_id' => 'hash_mutation_id',
-            'note'    => 'Testing Note Mutation',
-        ]);
+        $payload = new MutationNoteData( 'hash_mutation_id', 'Testing Note Mutation');
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -168,10 +166,7 @@ class MutationTest extends TestCase
     public function testFailAddNoteMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationNoteData([
-            'mutation_id' => '1',
-            'note'    => 'Testing Note Mutation',
-        ]);
+        $payload = new MutationNoteData( '1', 'Testing Note Mutation');
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
@@ -220,9 +215,7 @@ class MutationTest extends TestCase
     public function testdestroyMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_ids = new MutationDestroyData([
-            'mutations' => ["hash_mutation_id", "hash_mutation_id"]
-        ]);
+        $mutation_ids = new MutationDestroyData( ["hash_mutation_id", "hash_mutation_id"] );
 
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
@@ -256,9 +249,7 @@ class MutationTest extends TestCase
     public function testFaildestroyMutationWithWrongRequestPayload()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $mutation_ids = new MutationDestroyData([
-            'mutations' => []
-        ]);
+        $mutation_ids = new MutationDestroyData([]);
         $response = Zttp::withHeaders([
             'User-Agent'        => 'Moota/2.0',
             'Accept'            => 'application/json',
@@ -274,12 +265,12 @@ class MutationTest extends TestCase
     public function testAttachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationAttachTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+        $payload = new MutationAttachTaggingData(
+            '8aolk43WJxM',
+            [
                 "assurance", "..."
             ]
-        ]);
+        );
 
         $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
         $response = Zttp::withHeaders([
@@ -296,11 +287,10 @@ class MutationTest extends TestCase
     public function testFailAttachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationAttachTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+        $payload = new MutationAttachTaggingData(
+            '8aolk43WJxM',
+            [
                 "assurance-car", "..."
-            ]
         ]);
 
         $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
@@ -319,11 +309,10 @@ class MutationTest extends TestCase
     public function testUpdateTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationUpdateTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+        $payload = new MutationUpdateTaggingData(
+            '8aolk43WJxM',
+            [
                 "assurance", "..."
-            ]
         ]);
 
         $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');
@@ -341,11 +330,10 @@ class MutationTest extends TestCase
     public function testDetachTagMutation()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new MutationDetachTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+        $payload = new MutationDetachTaggingData(
+            '8aolk43WJxM',
+             [
                 "assurance", "..."
-            ]
         ]);
 
         $url = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $payload->mutation_id, '{mutation_id}');

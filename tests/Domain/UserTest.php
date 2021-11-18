@@ -33,12 +33,7 @@ class UserTest extends TestCase
     public function testUpdateUserProfile()
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
-        $payload = new UserUpdateData([
-            'name' => 'moota',
-            'email' => 'email@moota.co',
-            'no_ktp' => '12312312123123',
-            'alamat' => 'Jl. street no 1'
-        ]);
+        $payload = new UserUpdateData('moota','email@moota.co','12312312123123','Jl. street no 1' );
 
         $response = Request::post(Moota::ENDPOINT_USER_PROFILE_UPDATE, $payload->toArray());
         $results = $response->json();

@@ -39,15 +39,15 @@ class BankAccountTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new BankAccountStoreData([
-            "corporate_id"=> "",
-            "bank_type"=> Moota::BANK_TYPES[0], // list of bank type
-            "username"=> "loream",  //for gojek and ovo fill with mobile phone number
-            "password"=> "your password",
-            "name_holder"=> "loream kasma",
-            "account_number"=> "16899030",
-            "is_active"=> true
-        ]);
+        $payload = new BankAccountStoreData(
+             "",
+            Moota::BANK_TYPES[0], // list of bank type
+            "loream",  //for gojek and ovo fill with mobile phone number
+            "your password",
+            "loream kasma",
+            "16899030",
+            true
+       );
 
         $response = Request::post(Moota::ENDPOINT_BANK_STORE, $payload->toArray());
         $this->assertTrue($response->status() === 200);
@@ -61,15 +61,15 @@ class BankAccountTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new BankAccountStoreData([
-            "corporate_id"=> "",
-            "bank_type"=> "B C A",
-            "username"=> "loream",  //for gojek and ovo fill with mobile phone number
-            "password"=> "your password",
-            "name_holder"=> "loream kasma",
-            "account_number"=> "16899030",
-            "is_active"=> true
-        ]);
+        $payload = new BankAccountStoreData(
+            "",
+             "B C A",
+            "loream",  //for gojek and ovo fill with mobile phone number
+            "your password",
+            "loream kasma",
+            "16899030",
+            true
+        );
 
         $response = Request::post(Moota::ENDPOINT_BANK_STORE, $payload->toArray());
         $this->assertTrue($response->status() === 422);
@@ -82,15 +82,15 @@ class BankAccountTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new BankAccountUpdateData([
-            "bank_id" => "hashing_qwopejs_id",
-            "username"=> "jhon",  //for gojek and ovo fill with mobile phone number
-            "corporate_id"=> "",
-            "bank_type"=> "",
-            "password"=> "",
-            "name_holder"=> "",
-            "account_number"=> "",
-        ]);
+        $payload = new BankAccountUpdateData(
+            "hashing_qwopejs_id",
+            "jhon",  //for gojek and ovo fill with mobile phone number
+            "",
+            "",
+            "",
+            "",
+            ""
+        );
         $url = Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_UPDATE, $payload->bank_id, '{bank_id}');
         $response = Request::put($url, array_filter($payload->toArray()));
 
@@ -102,15 +102,15 @@ class BankAccountTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new BankAccountUpdateData([
-            "bank_id" => '1',
-            "username"=> "jhon",  //for gojek and ovo fill with mobile phone number
-            "corporate_id"=> "",
-            "bank_type"=> "",
-            "password"=> "",
-            "name_holder"=> "",
-            "account_number"=> "",
-        ]);
+        $payload = new BankAccountUpdateData(
+            '1',
+            "jhon",  //for gojek and ovo fill with mobile phone number
+            "",
+            "",
+            "",
+            "",
+            "",
+        );
 
         $url = Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_UPDATE, $payload->bank_id, '{bank_id}');
         $response = Request::put($url, array_filter($payload->toArray()));
@@ -199,10 +199,10 @@ class BankAccountTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new BankAccountEwalletOtpVerification([
-            'bank_id' => 'hash_verification_ewallet_id',
-            'otp_code' => '1234'
-        ]);
+        $payload = new BankAccountEwalletOtpVerification(
+            'hash_verification_ewallet_id',
+            '1234'
+       );
 
         $url = Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, $payload->bank_id, '{bank_id}');
         $response = Request::post($url, $payload->toArray());
@@ -216,10 +216,10 @@ class BankAccountTest extends TestCase
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
 
-        $payload = new BankAccountEwalletOtpVerification([
-            'bank_id' => 'hash_verification_ewallet_id',
-            'otp_code' => '12345'
-        ]);
+        $payload = new BankAccountEwalletOtpVerification(
+            'hash_verification_ewallet_id',
+            '12345'
+        );
 
         $url = Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, $payload->bank_id, '{bank_id}');
         $response = Request::post($url, $payload->toArray());

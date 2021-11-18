@@ -60,10 +60,7 @@ class TopupTest extends TestCase
         $amounts = $amounts->json();
         $methods = $methods->json();
 
-        $payload = new CreateTopupData([
-            'amount' => $amounts[0]['value'],
-            'payment_method' => $methods[0]['methods'][0]['bank_type']
-        ]);
+        $payload = new CreateTopupData( $amounts[0]['value'], $methods[0]['methods'][0]['bank_type']);
 
         $response = Request::post(Moota::ENDPOINT_TOPUP_STORE, $payload->toArray());
         $this->assertTrue($response->status() === 200);
@@ -119,9 +116,7 @@ class TopupTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
 
-        $payload = new VoucherRedeemData([
-            'code' => 'abcd'
-        ]);
+        $payload = new VoucherRedeemData(  'abcd' );
 
         $response = Request::post(Moota::ENDPOINT_VOUCHER_REDEEM, $payload->toArray());
 
@@ -136,9 +131,7 @@ class TopupTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
 
-        $payload = new VoucherRedeemData([
-            'code' => 'abcd-efgh'
-        ]);
+        $payload = new VoucherRedeemData( 'abcd-efgh' );
 
         $response = Request::post(Moota::ENDPOINT_VOUCHER_REDEEM, $payload->toArray());
 

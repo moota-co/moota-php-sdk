@@ -25,9 +25,7 @@ class TaggingTest extends TestCase
     public function testGetListTag()
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
-        $params = new TaggingQueryParameterData([
-            'tag' => ['assurance', 'cash']
-        ]);
+        $params = new TaggingQueryParameterData(['assurance', 'cash']);
         $response = Request::get(Moota::ENDPOINT_TAGGING_INDEX, $params->toArray());
 
         $this->assertTrue($response->status() === 200);
@@ -41,9 +39,7 @@ class TaggingTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new TaggingStoreData([
-            'name' => 'assurance'
-        ]);
+        $payload = new TaggingStoreData( 'assurance' );
 
         $response = Request::post(Moota::ENDPOINT_TAGGING_STORE, $payload->toArray());
         $this->assertTrue($response->status() === 200);
@@ -57,9 +53,7 @@ class TaggingTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
 
-        $payload = new TaggingStoreData([
-            'name' => ''
-        ]);
+        $payload = new TaggingStoreData('');
 
         $response = Request::post(Moota::ENDPOINT_TAGGING_STORE, $payload->toArray());
         $this->assertTrue($response->status() === 422);
@@ -70,10 +64,7 @@ class TaggingTest extends TestCase
     public function testUpdateTag()
     {
         Moota::$ACCESS_TOKEN = "ajklshdasdjals";
-        $payload = new TaggingUpdateData([
-            'tag_id' => 'VLagzqBj42Ds',
-            'name' => 'assurance-car'
-        ]);
+        $payload = new TaggingUpdateData( 'VLagzqBj42Ds', 'assurance-car' );
 
         $response = Request::put(Helper::replace_uri_with_id( Moota::ENDPOINT_TAGGING_UPDATE, $payload->tag_id, '{tag_id}'), $payload->toArray());
         $this->assertTrue($response->status() === 200);

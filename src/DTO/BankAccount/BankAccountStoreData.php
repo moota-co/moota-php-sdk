@@ -6,18 +6,13 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class BankAccountStoreData extends DataTransferObject
 {
-    /** @var string */
-    public $corporate_id; // leave blank when non-corporate account bank example -> ''
-    /** @var string */
-    public $bank_type;
-    /** @var string */
-    public $username;
-    /** @var string */
-    public $password;
-    /** @var string */
-    public $name_holder;
-    /** @var string */
-    public $account_number;
-    /** @var bool */
-    public $is_active = true;
+    public function __construct(
+        public null|string $corporate_id, // leave blank when non-corporate account bank example -> ''
+        public string $bank_type,
+        public string $username,
+        public string $password,
+        public string $name_holder,
+        public string $account_number,
+        public bool $is_active = true
+    ) { }
 }

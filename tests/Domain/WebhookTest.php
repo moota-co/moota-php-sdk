@@ -60,14 +60,14 @@ class WebhookTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9';
 
-        $payload = (new WebhookStoreData([
-            'url' => 'https://app.moota.co/endpoint/webhook',
-            'secret_token' => 'akjsdkj3',
-            'start_unique_code' => 1,
-            'end_unique_code' => 999,
-            'kinds' => 'credit',
-            'bank_account_id' => '', // set for all banks account
-        ]))->toArray();
+        $payload = (new WebhookStoreData(
+            'https://app.moota.co/endpoint/webhook',
+            'akjsdkj3',
+            1,
+            999,
+            'credit',
+            '', // set for all banks account
+        ))->toArray();
 
         $response = Request::post(Moota::ENDPOINT_WEBHOOK_STORE, $payload);
 
@@ -78,14 +78,14 @@ class WebhookTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9';
 
-        $payload = (new WebhookStoreData([
-            'url' => 'https://app.moota.co/endpoint/webhook',
-            'secret_token' => 'akjsdkj3',
-            'start_unique_code' => 1,
-            'end_unique_code' => 999,
-            'kinds' => 'assurance',
-            'bank_account_id' => '', // set for all banks account
-        ]))->toArray();
+        $payload = (new WebhookStoreData(
+            'https://app.moota.co/endpoint/webhook',
+            'akjsdkj3',
+            1,
+            999,
+            'assurance',
+            '', // set for all banks account
+        ))->toArray();
 
         $response = Request::post(Moota::ENDPOINT_WEBHOOK_STORE, $payload);
         $this->assertTrue($response->status() == 422);
