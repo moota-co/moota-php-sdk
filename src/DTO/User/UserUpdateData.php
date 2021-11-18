@@ -8,12 +8,10 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class UserUpdateData extends DataTransferObject
 {
-    /** @var string  */
-    public $name;
-    /** @var string */
-    public $email = '';
-    /** @var string  */
-    public $no_ktp = '';
-    /** @var string  */
-    public $alamat = '';
+    public function __construct(
+        public string $name,
+        public ?string $email = null,
+        public ?string $no_ktp = null,
+        public ?string $alamat = null
+    ) { }
 }

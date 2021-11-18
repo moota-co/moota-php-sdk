@@ -14,8 +14,9 @@ This is the Official PHP wrapper/library for Moota API V2, that is compatible wi
 Visit [https://moota.co](https://moota.co) for more information about the product.
 
 ## Support us [Data Transfer Object]()
-* **Note**: of this package only supports `php:^>=7.1`
-
+* of this package only supports `php:^>=8`
+* need old version  `php:^=<8` [click here](https://github.com/moota-co/moota-php-sdk/tree/v1) 
+  
 ## 1. Installation
 
 ### 1.a Composer Installation
@@ -72,13 +73,11 @@ require __DIR__ . '/../vendor/autoload.php';
 $auth = new \Moota\Moota\Domain\Auth();
 try {
     $getSecretToken = $auth->login(
-       new \Moota\Moota\DTO\Auth\LoginData([
-                'email' => 'user@moota.co',
-                'password' => 'password_hash',
-                'scopes' => new \Moota\Moota\DTO\Auth\ScopesData([
-                    'api' => true
-                ])
-            ])
+       new \Moota\Moota\DTO\Auth\LoginData(
+                'user@moota.co',
+                'password_hash',
+                new \Moota\Moota\DTO\Auth\ScopesData(  true )
+            )
     );
     // set to \Moota\Moota\Config::$ACCESS_TOKEN = $getSecretToken['access_token'];
 } catch (\Moota\Moota\Exception\MootaException $exception) {
@@ -104,15 +103,15 @@ $bank_account = new \Moota\Moota\Domain\BankAccount();
 // store bank account
 try {
     $bank_account->storeBankAccount(
-        new \Moota\Moota\DTO\BankAccount\BankAccountStoreData([
-            "corporate_id" => "",
-            "bank_type" => Moota::BANK_TYPES[0], // list of bank type
-            "username" => "loream",  //for gojek and ovo fill with mobile phone number
-            "password" => "your password",
-            "name_holder" => "loream kasma",
-            "account_number" => "16899030",
-            "is_active" => true
-        ])
+        new \Moota\Moota\DTO\BankAccount\BankAccountStoreData(
+            "",
+            Moota::BANK_TYPES[0], // list of bank type
+            "loream",  //for gojek and ovo fill with mobile phone number
+            "your password",
+            "loream kasma",
+            "16899030",
+            true
+        )
     );
  } catch (\Moota\Moota\Exception\MootaException $exception) {
     print_r($exception->getPharseErrors());
@@ -125,15 +124,15 @@ body parameter storeBankAccount() reference [here](src/DTO/BankAccount/BankAccou
 // update bank account
 try {
     $bank_account->updateBankAccount(
-        new \Moota\Moota\DTO\BankAccount\BankAccountUpdateData([
-            "bank_id" => "hashing_qwopejs_id",
-            "username" => "jhon",  //for gojek and ovo fill with mobile phone number
-            "corporate_id" => "",
-            "bank_type" => "",
-            "password" => "",
-            "name_holder" => "",
-            "account_number" => "",
-        ])
+        new \Moota\Moota\DTO\BankAccount\BankAccountUpdateData(
+           "hashing_qwopejs_id",
+            "jhon",  //for gojek and ovo fill with mobile phone number
+            "",
+            "",
+            "",
+            "",
+            ""
+            )
     );
  } catch (\Moota\Moota\Exception\MootaException $exception) {
     print_r($exception->getPharseErrors());
@@ -191,13 +190,13 @@ $mutation = new \Moota\Moota\Domain\Mutation();
 ```php
 // get my mutation
 $my_mutation = $mutation->getMutations(
-    new \Moota\Moota\DTO\Mutation\MutationQueryParameterData([
-            'bank_id' => 'asdasd',
-            'date'    => '2021-09-21',
-            'note'    => 'Testing Note Mutation',
-            'amount'  => '2000123',
-            'type'    => 'CR'
-        ])
+    new \Moota\Moota\DTO\Mutation\MutationQueryParameterData(
+            'asdasd',
+            '2021-09-21',
+            'Testing Note Mutation',
+            '2000123',
+            'CR'
+        )
 );
 ```
 mutation query parameter getMutations() reference [here](src/DTO/Mutation/MutationQueryParameterData.php)
@@ -214,10 +213,10 @@ mutation parameter on storeMutation() reference [here](src/DTO/Mutation/Mutation
 ```php
 // Add note mutation
 $my_mutation = $mutation->addNoteMutation(
-    new \Moota\Moota\DTO\Mutation\MutationNoteData([
-            'mutation_id' => 'hash_mutation_id',
-            'note'    => 'Testing Note Mutation',
-        ])
+    new \Moota\Moota\DTO\Mutation\MutationNoteData(
+            'hash_mutation_id',
+            'Testing Note Mutation',
+        )
 );
 ``` 
 mutation parameter on  addNoteMutation() reference [here](src/DTO/Mutation/MutationNoteData.php)
@@ -231,9 +230,9 @@ $my_mutation = $mutation->pushWebhookByMutation('<mutation_id>');
 * method destroy mutation can multiple remove mutation
 */
 $my_mutation = $mutation->destroyMutation(
-    new \Moota\Moota\DTO\Mutation\MutationDestroyData([
-            'mutations' => ["hash_mutation_id", "hash_mutation_id"]
-        ])
+    new \Moota\Moota\DTO\Mutation\MutationDestroyData(
+           ["hash_mutation_id", "hash_mutation_id"]
+        )
 );
 ``` 
 mutation parameter on destroyMutation() reference [here](src/DTO/Mutation/MutationDestroyData.php)
@@ -242,12 +241,12 @@ mutation parameter on destroyMutation() reference [here](src/DTO/Mutation/Mutati
 // method attach tagging to mutation 
 
 $my_mutation = $mutation->attachTagMutation(
-    new \Moota\Moota\DTO\Mutation\MutationAttachTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+    new \Moota\Moota\DTO\Mutation\MutationAttachTaggingData(
+            '8aolk43WJxM',
+            [
                 "assurance", "..."
             ]
-        ])
+        )
 );
 ``` 
 mutation parameter on attachTagMutation() reference [here](src/DTO/Mutation/MutationAttachTaggingData.php)
@@ -257,11 +256,11 @@ mutation parameter on attachTagMutation() reference [here](src/DTO/Mutation/Muta
 
 $my_mutation = $mutation->detachTagMutation(
     new \Moota\Moota\DTO\Mutation\MutationDetachTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+            '8aolk43WJxM',
+            [
                 "assurance", "..."
             ]
-        ])
+        )
 );
 ``` 
 mutation parameter on detachTagMutation() reference [here](src/DTO/Mutation/MutationDetachTaggingData.php)
@@ -271,11 +270,11 @@ mutation parameter on detachTagMutation() reference [here](src/DTO/Mutation/Muta
 
 $my_mutation = $mutation->updateTagMutation(
     new \Moota\Moota\DTO\Mutation\MutationUpdateTaggingData([
-            "mutation_id" => '8aolk43WJxM',
-            "name" => [
+            '8aolk43WJxM',
+            [
                 "assurance", "..."
             ]
-        ])
+        )
 );
 ``` 
 mutation parameter on updateTagMutation() reference [here](src/DTO/Mutation/MutationUpdateTaggingData.php)
@@ -288,9 +287,9 @@ $tagging = new \Moota\Moota\Domain\Tagging();
 
 ```php
 $my_tagging = $tagging->getTaggings(
-    new \Moota\Moota\DTO\Tagging\TaggingQueryParameterData([
-            'tag' => ['assurance', 'cash'] // or leave blank doesn`t have filter
-        ])
+    new \Moota\Moota\DTO\Tagging\TaggingQueryParameterData(
+            ['assurance', 'cash'] // or leave blank doesn`t have filter
+        )
 ); 
 ``` 
 tagging parameter on getTaggings() reference [here](src/DTO/Tagging/TaggingQueryParameterData.php)
@@ -299,9 +298,9 @@ tagging parameter on getTaggings() reference [here](src/DTO/Tagging/TaggingQuery
 ```php
 // create first tagging like it
 $my_tagging = $tagging->storeTagging(
-    new \Moota\Moota\DTO\Tagging\TaggingStoreData([
-            'name' => 'assurance'
-        ])
+    new \Moota\Moota\DTO\Tagging\TaggingStoreData(
+            'assurance'
+        )
 ); 
 ``` 
 tagging parameter on storeTagging() reference [here](src/DTO/Tagging/TaggingStoreData.php)
@@ -309,10 +308,10 @@ tagging parameter on storeTagging() reference [here](src/DTO/Tagging/TaggingStor
 ```php
 // update tagging like it
 $my_tagging = $tagging->updateTagging(
-    new \Moota\Moota\DTO\Tagging\TaggingUpdateData([
-            'tag_id' => 'VLagzqBj42Ds',
-            'name' => 'assurance-car'
-        ])
+    new \Moota\Moota\DTO\Tagging\TaggingUpdateData(
+           'VLagzqBj42Ds',
+            'assurance-car'
+        )
 ); 
 ``` 
 tagging parameter on updateTagging() reference [here](src/DTO/Tagging/TaggingUpdateData.php)
@@ -344,19 +343,19 @@ $my_topup = $topup->getListTopupPoint();
 ```php
 // create topup point
 $my_topup = $topup->createTopupPoint(
-    new \Moota\Moota\DTO\Topup\CreateTopupData([
-            'amount' => 100000,
-            'payment_method' => 'bca'
-        ])
+    new \Moota\Moota\DTO\Topup\CreateTopupData(
+            100000,
+            'bca'
+        )
 );
 ```
 topup parameter on createTopupPoint() reference [here](src/DTO/Topup/CreateTopupData.php)
 ```php
 // have a voucher code ?
 $my_topup = $topup->redeemVoucher(
-    new \Moota\Moota\DTO\Topup\VoucherRedeemData([
-            'code' => 'abcd'
-        ])
+    new \Moota\Moota\DTO\Topup\VoucherRedeemData(
+          'abcd'
+        )
 );
 ```
 topup parameter on redeemVoucher() reference [here](src/DTO/Topup/VoucherRedeemData.php)
@@ -367,11 +366,11 @@ you can get history transaction of point here
 $transaction = new \Moota\Moota\Domain\Transaction();  
 
 $history = $transaction->getHistoryTransactionPoint(
-    new \Moota\Moota\DTO\Transaction\TransactionHistoryData([
-            'page' => 1,
-            'start_date' => '',
-            'end_date' => ''
-        ])
+    new \Moota\Moota\DTO\Transaction\TransactionHistoryData(
+             1,
+             '',
+            ''
+        )
 );
 ```
 transaction parameter on getHistoryTransactionPoint() reference [here](src/DTO/Transaction/TransactionHistoryData.php)
@@ -384,12 +383,12 @@ $user = new \Moota\Moota\Domain\User();
 $my_profile = $transaction->getProfile();
 
 $my_profile = $transaction->updateProfile(
-    new \Moota\Moota\DTO\User\UserUpdateData([
-            'name' => 'moota',
-            'email' => 'email@moota.co',
-            'no_ktp' => '12312312123123',
-            'alamat' => 'Jl. street no 1'
-        ])
+    new \Moota\Moota\DTO\User\UserUpdateData(
+            'moota',
+            'email@moota.co',
+            '12312312123123',
+            'Jl. street no 1'
+        )
 );
 ```
 User parameter on updateProfile() reference [here](src/DTO/User/UserUpdateData.php)
@@ -403,26 +402,26 @@ $webhook = new \Moota\Moota\Domain\Webhook();
 ```php
 
 $response = $webhook->getListWebhooks(
-    new \Moota\Moota\DTO\Webhook\WebhookQueryParameterData([
-        'url' => '',
-        'bank_account_id' => '',
-        'page' => 1,
-        'per_page' => 20
-    ])
+    new \Moota\Moota\DTO\Webhook\WebhookQueryParameterData(
+        '',
+        '',
+         1,
+        20
+    )
 );
 ```
 
 ```php
 try {
     $response = $webhook->storeWebhook(
-        new \Moota\Moota\DTO\Webhook\WebhookStoreData([
-                'url' => 'https://app.moota.co/endpoint/webhook',
-                'secret_token' => 'akjsdkj3',
-                'start_unique_code' => 1,
-                'end_unique_code' => 999,
-                'kinds' => 'credit',
-                'bank_account_id' => '', // leave blank webhook can set for all banks account
-            ])
+        new \Moota\Moota\DTO\Webhook\WebhookStoreData(
+                'https://app.moota.co/endpoint/webhook',
+               'akjsdkj3',
+                1,
+               999,
+                'credit',
+                '', // leave blank webhook can set for all banks account
+            )
     );
  } catch (\Moota\Moota\Exception\MootaException $exception) {
     print_r($exception->getPharseErrors());

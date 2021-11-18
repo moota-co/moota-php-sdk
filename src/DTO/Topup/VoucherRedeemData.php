@@ -8,6 +8,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class VoucherRedeemData extends DataTransferObject
 {
-    /** @var string  */
-    public $code;
+    public function __construct(
+        public string $code
+    ) { }
 }

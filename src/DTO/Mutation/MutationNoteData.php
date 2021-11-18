@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class MutationNoteData extends DataTransferObject
 {
-    /** @var string */
-    public $mutation_id;
-    /** @var string */
-    public $note;
+    public function __construct(
+        public string $mutation_id,
+        public string $note
+    ) { }
 }

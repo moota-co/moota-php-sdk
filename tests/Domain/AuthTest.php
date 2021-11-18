@@ -18,13 +18,13 @@ class AuthTest extends TestCase
 
     public function testAuthLogin()
     {
-        $payload = new LoginData([
-            'email' => 'user@moota.co',
-            'password' => 'password_hash',
-            'scopes' => new ScopesData([
-                'api' => true
-            ])
-        ]);
+        $payload = new LoginData(
+            'user@moota.co',
+            'password_hash',
+            new ScopesData(
+                 true
+            )
+        );
         $response = Request::post(Moota::ENDPOINT_AUTH_LOGIN, $payload->toArray());
         $this->assertTrue($response->status() === 200);
         $this->assertEquals(

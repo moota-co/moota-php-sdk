@@ -6,14 +6,11 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class MutationStoreData extends DataTransferObject
 {
-    /** @var string */
-    public $bank_id;
-    /** @var string */
-    public $date;
-    /** @var string */
-    public $amount;
-    /** @var string */
-    public $type = 'CR';
-    /** @var string */
-    public $note = 'need debugging mutation dummy';
+    public function __construct(
+        public string $bank_id,
+        public string $date,
+        public string $amount,
+        public string $type = 'CR',
+        public string $note = 'need debugging mutation dummy'
+    ) { }
 }

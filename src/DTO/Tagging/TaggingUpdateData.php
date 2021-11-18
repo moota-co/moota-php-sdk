@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class TaggingUpdateData extends DataTransferObject
 {
-    /** @var string  */
-    public $tag_id;
-    /** @var string */
-    public $name;
+    public function __construct(
+        public string $tag_id,
+        public string $name
+    ) { }
 }

@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class MutationDetachTaggingData extends DataTransferObject
 {
-    /** @var string  */
-    public $mutation_id;
-    /** @var array */
-    public $name;
+    public function __construct(
+        public string $mutation_id,
+        public array $name
+    ) { }
 }

@@ -8,7 +8,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class ManualConfirmationTopupData extends DataTransferObject
 {
-    /** @var string  */
-    public $topup_id;
-    public $file;
+    public function __construct(
+        public string $topup_id,
+        public $file
+    ){  }
+
 }

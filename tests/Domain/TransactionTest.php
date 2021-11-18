@@ -20,11 +20,7 @@ class TransactionTest extends TestCase
     {
         Moota::$ACCESS_TOKEN = 'abcdefghijklmnopqrstuvwxyz';
 
-        $query_param = new TransactionHistoryData([
-            'page' => 1,
-            'start_date' => '',
-            'end_date' => ''
-        ]);
+        $query_param = new TransactionHistoryData( 1, '', '' );
 
         $response = Request::get(Moota::ENDPOINT_TRANSACTION_HISTORY, $query_param->toArray());
 
