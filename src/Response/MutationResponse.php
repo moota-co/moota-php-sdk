@@ -10,10 +10,10 @@ class MutationResponse
 
     public function __construct(array $result)
     {
-        if (! isset($result['data'])) {
-           return $this->data = $result;
-        }
-        $this->data = $result['data'];
+//        if (! isset($result['data'])) {
+//           return $this->data = $result;
+//        }
+        $this->data = $result;
     }
 
     /**

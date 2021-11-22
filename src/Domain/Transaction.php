@@ -2,15 +2,26 @@
 
 namespace Moota\Moota\Domain;
 
+use GuzzleHttp\Client;
 use Moota\Moota\Config\Moota;
 use Moota\Moota\DTO\Transaction\TransactionHistoryData;
 use Moota\Moota\Exception\MootaException;
-use Moota\Moota\Response\ParseResponse;
-use Moota\Moota\Response\Transaction\TransactionHistoryResponse;
-use Zttp\Zttp;
 
 class Transaction
 {
+    protected $client;
+
+    protected array $headers = [];
+
+    public function __construct()
+    {
+        $this->client = new Client(['base_uri' => Moota::BASE_URL]);
+        $this->headers = [
+            'User-Agent' => 'Moota/2.0',
+            'Accept'     => 'application/json',
+            'Authorization' => 'Bearer ' . Moota::$ACCESS_TOKEN
+        ];
+    }
     /**
      * Get History Points
      *
@@ -18,16 +29,15 @@ class Transaction
      */
     public function getHistoryTransactionPoint(TransactionHistoryData $historyTransactionData)
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_TRANSACTION_HISTORY;
-
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->get($url, $historyTransactionData->toArray()), $url
-        ))
-            ->getResponse()
-            ->getHistoryTransactionData();
+        try {
+            $response = $this->client->get(  Moota::ENDPOINT_TRANSACTION_HISTORY, [
+                'headers' => $this->headers,
+                'query' =>  $historyTransactionData->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_TRANSACTION_HISTORY))->getResponse()->getHistoryTransactionData();
+        }
     }
 }

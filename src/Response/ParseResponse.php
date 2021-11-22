@@ -34,26 +34,29 @@ class ParseResponse
         Moota::ENDPOINT_MUTATION_DESTROY => 'Moota\Moota\Exception\Mutation\MutationException'
     ];
 
-    private $response;
+    public $response;
 
-    public function __construct($results, $url)
+    public function __construct(\GuzzleHttp\Psr7\Response $results, $uri)
     {
-        $parts = parse_url($url);
 
-        if(! $results->isOk() ) {
-            $error_message = $results->json()['message'] ?? $results->json()['error'];
-            if( isset($this->exceptionClass[$parts['path']]) ) {
-                throw new $this->exceptionClass[$parts['path']]($error_message, $results->status(), null, $results->json());
+        $response = json_decode($results->getBody()->getContents(), true);
+        $status_code = $results->getStatusCode();
+
+
+        if( $status_code != 200 ) {
+            $error_message = $response['message'] ?? $response['error'];
+            if( isset($this->exceptionClass[$uri]) ) {
+                throw new $this->exceptionClass[$uri]($error_message, $status_code, null, $response);
             }
 
-            throw new MootaException($error_message, $results->status(), null, $results->json());
+            throw new MootaException($error_message, $status_code, null, $response);
         }
 
-        if(! isset($this->responseClass[$parts['path']])) {
-            return $this->response = $results->json();
+        if(! isset($this->responseClass[$uri])) {
+            return $this->response = $response;
         }
 
-        $this->response = new $this->responseClass[$parts['path']]($results->json());
+        $this->response = new $this->responseClass[$uri]($response);
     }
 
     /**

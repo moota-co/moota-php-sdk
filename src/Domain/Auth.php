@@ -2,6 +2,7 @@
 
 namespace Moota\Moota\Domain;
 
+use GuzzleHttp\Client;
 use Moota\Moota\Config\Moota;
 use Moota\Moota\DTO\Auth\LoginData;
 use Moota\Moota\Exception\MootaException;
@@ -10,6 +11,20 @@ use Zttp\Zttp;
 
 class Auth
 {
+    protected $client;
+
+    protected array $headers = [];
+
+    public function __construct()
+    {
+        $this->client = new Client(['base_uri' => Moota::BASE_URL]);
+        $this->headers = [
+            'User-Agent' => 'Moota/2.0',
+            'Accept'     => 'application/json',
+            'Authorization' => 'Bearer ' . Moota::$ACCESS_TOKEN
+        ];
+    }
+
     /**
      * Get Access Token
      *
@@ -17,14 +32,18 @@ class Auth
      */
     public function login(LoginData $authData)
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_AUTH_LOGIN;
-        $payload = array_merge($authData->toArray(), ['scopes' => array_keys(array_filter($authData->scopes->toArray()))]);
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-            ])->post($url, $payload), $url
-        ))->getResponse();
+        try {
+            $payload = array_merge($authData->toArray(), ['scopes' => array_keys(array_filter($authData->scopes->toArray()))]);
+
+            $response = $this->client->post(  Moota::ENDPOINT_AUTH_LOGIN, [
+                'headers' => $this->headers,
+                'json' => $payload
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_AUTH_LOGIN))->getResponse();
+        }
     }
 
     /**
@@ -34,13 +53,15 @@ class Auth
      */
     public function logout()
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_AUTH_LOGOUT;
-
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-            ])->post($url), $url
-        ))->getResponse();
+        try {
+            $response = $this->client->post(  Moota::ENDPOINT_AUTH_LOGOUT, [
+                'headers' => $this->headers,
+                'json' => []
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_AUTH_LOGIN))->getResponse();
+        }
     }
 }

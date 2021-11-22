@@ -2,6 +2,7 @@
 
 namespace Moota\Moota\Domain;
 
+use GuzzleHttp\Client;
 use Moota\Moota\Config\Moota;
 use Moota\Moota\DTO\Mutation\MutationAttachTaggingData;
 use Moota\Moota\DTO\Mutation\MutationDestroyData;
@@ -13,12 +14,22 @@ use Moota\Moota\DTO\Mutation\MutationUpdateTaggingData;
 use Moota\Moota\Exception\MootaException;
 use Moota\Moota\Exception\Mutation\MutationException;
 use Moota\Moota\Helper\Helper;
-use Moota\Moota\Response\ParseResponse;
-use Zttp\Zttp;
 
 class Mutation
 {
+    protected $client;
 
+    protected array $headers = [];
+
+    public function __construct()
+    {
+        $this->client = new Client(['base_uri' => Moota::BASE_URL]);
+        $this->headers = [
+            'User-Agent' => 'Moota/2.0',
+            'Accept'     => 'application/json',
+            'Authorization' => 'Bearer ' . Moota::$ACCESS_TOKEN
+        ];
+    }
     /**
      * Get List Mutation and filter with query parameter object
      *
@@ -27,16 +38,16 @@ class Mutation
      */
     public function getMutations(MutationQueryParameterData $mutationQueryParameterData)
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_INDEX;
-
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->get($url, array_filter($mutationQueryParameterData->toArray())), $url
-        ))
-        ->getResponse()->getData();
+        try {
+            $response = $this->client->get(  Moota::ENDPOINT_MUTATION_INDEX, [
+                'headers' => $this->headers,
+                'query' => array_filter($mutationQueryParameterData->toArray())
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_MUTATION_INDEX))->getResponse()->getData();
+        }
     }
 
     /**
@@ -47,16 +58,16 @@ class Mutation
      */
     public function storeMutation(MutationStoreData $mutationStoreData)
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_STORE . $mutationStoreData->bank_id;
-
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $mutationStoreData->except('bank_id')->toArray()), $url
-        ))
-        ->getResponse();
+        try {
+            $response = $this->client->post(  Moota::ENDPOINT_MUTATION_STORE . $mutationStoreData->bank_id, [
+                'headers' => $this->headers,
+                'json' => $mutationStoreData->except('bank_id')->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_MUTATION_STORE))->getResponse();
+        }
     }
 
     /**
@@ -67,16 +78,18 @@ class Mutation
      */
     public function addNoteMutation(MutationNoteData $mutationNoteData)
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_MUTATION_NOTE, $mutationNoteData->mutation_id, '{mutation_id}');
+        try {
+            $uri = Helper::replace_uri_with_id( Moota::ENDPOINT_MUTATION_NOTE, $mutationNoteData->mutation_id, '{mutation_id}');
 
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $mutationNoteData->except('mutation_id')->toArray()), $url
-        ))
-        ->getResponse();
+            $response = $this->client->post(  $uri, [
+                'headers' => $this->headers,
+                'json' => $mutationNoteData->except('mutation_id')->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_MUTATION_STORE))->getResponse();
+        }
     }
 
     /**
@@ -87,16 +100,18 @@ class Mutation
      */
     public function pushWebhookByMutation(string $mutation_id)
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK, $mutation_id, '{mutation_id}');
+        try {
+            $uri = Helper::replace_uri_with_id(Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK, $mutation_id, '{mutation_id}');
 
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, []), $url
-        ))
-            ->getResponse();
+            $response = $this->client->post(  $uri, [
+                'headers' => $this->headers,
+                'json' => []
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_MUTATION_PUSH_WEBHOOK))->getResponse();
+        }
     }
 
     /**
@@ -107,16 +122,16 @@ class Mutation
      */
     public function destroyMutation(MutationDestroyData $mutationDestroyData)
     {
-        $url = Moota::BASE_URL . Moota::ENDPOINT_MUTATION_DESTROY;
-
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $mutationDestroyData->toArray()), $url
-        ))
-            ->getResponse();
+        try {
+            $response = $this->client->post(  Moota::ENDPOINT_MUTATION_DESTROY, [
+                'headers' => $this->headers,
+                'json' => $mutationDestroyData->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_MUTATION_DESTROY))->getResponse();
+        }
     }
 
     /**
@@ -127,15 +142,18 @@ class Mutation
      */
     public function attachTagMutation(MutationAttachTaggingData $mutationAttachTaggingData)
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutationAttachTaggingData->mutation_id, '{mutation_id}');
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->post($url, $mutationAttachTaggingData->except('mutation_id')->toArray()), $url
-        ))
-            ->getResponse();
+        try {
+            $uri = Helper::replace_uri_with_id( Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION, $mutationAttachTaggingData->mutation_id, '{mutation_id}');
+
+            $response = $this->client->post( $uri, [
+                'headers' => $this->headers,
+                'json' => $mutationAttachTaggingData->except('mutation_id')->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_ATTATCH_TAGGING_MUTATION))->getResponse();
+        }
     }
 
     /**
@@ -146,15 +164,18 @@ class Mutation
      */
     public function detachTagMutation(MutationDetachTaggingData $mutationDetachTaggingData)
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_DETACH_TAGGING_MUTATION, $mutationDetachTaggingData->mutation_id, '{mutation_id}');
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->delete($url, $mutationDetachTaggingData->except('mutation_id')->toArray()), $url
-        ))
-            ->getResponse();
+        try {
+            $uri = Helper::replace_uri_with_id( Moota::ENDPOINT_DETACH_TAGGING_MUTATION, $mutationDetachTaggingData->mutation_id, '{mutation_id}');
+
+            $response = $this->client->post( $uri, [
+                'headers' => $this->headers,
+                'json' => $mutationDetachTaggingData->except('mutation_id')->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_DETACH_TAGGING_MUTATION))->getResponse();
+        }
     }
 
     /**
@@ -165,14 +186,17 @@ class Mutation
      */
     public function updateTagMutation(MutationUpdateTaggingData $mutationUpdateTaggingData)
     {
-        $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutationUpdateTaggingData->mutation_id, '{mutation_id}');
-        return (new ParseResponse(
-            Zttp::withHeaders([
-                'User-Agent'        => 'Moota/2.0',
-                'Accept'            => 'application/json',
-                'Authorization'     => 'Bearer ' . Moota::$ACCESS_TOKEN
-            ])->put($url, $mutationUpdateTaggingData->except('mutation_id')->toArray()), $url
-        ))
-            ->getResponse();
+        try {
+            $url = Helper::replace_uri_with_id(Moota::BASE_URL . Moota::ENDPOINT_UPDATE_TAGGING_MUTATION, $mutationUpdateTaggingData->mutation_id, '{mutation_id}');
+
+            $response = $this->client->put( $uri, [
+                'headers' => $this->headers,
+                'json' => $mutationUpdateTaggingData->except('mutation_id')->toArray()
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response = $e->getResponse();
+        } finally {
+            return (new \Moota\Moota\Response\ParseResponse($response, Moota::ENDPOINT_UPDATE_TAGGING_MUTATION))->getResponse();
+        }
     }
 }
