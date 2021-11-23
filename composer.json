@@ -19,8 +19,8 @@
         "php": ">=8",
         "ext-curl": "*",
         "ext-json": "*",
-        "kitetail/zttp": "^0.6.0",
-        "spatie/data-transfer-object": "^3.0"
+        "spatie/data-transfer-object": "^3.0",
+        "guzzlehttp/guzzle": "^7.4"
     },
     "autoload": {
         "psr-4": {
