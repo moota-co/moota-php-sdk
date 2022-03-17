@@ -463,7 +463,27 @@ $app->router->get(Helper::replace_uri_with_id( Moota::ENDPOINT_WEBHOOK_HISTORY, 
  * End Mocking Server webhook
  */
 
+ /**
+ * Start Mocking Server Contract
+ */
 
+$app->router->post(Moota::ENDPOINT_CONTRACT_STORE, function () {
+    $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Contract/MockStoreContractResponse.json');
+    $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/Mocking/Contract/MockFailContractStoreResponse.json');
+    $request = app('request');
+    $response = json_decode($mock_success_response, true);
+    $status = 200;
+
+    if($request->json()->all()['invoice_number'] == 'inv_moota_01') {
+        $status = 422;
+        $response = json_decode($mock_fail_response, true);
+    }
+
+    return response()->json( $response ,  $request->header('Z-Status', $status) );
+});
+/**
+ * End Mocking Server Contract
+ */
 
 $app->router->patch('/patch', function () {
     return build_response(app('request'));

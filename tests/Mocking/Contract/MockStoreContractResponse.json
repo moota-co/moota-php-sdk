@@ -1,0 +1,37 @@
+{
+    "success": true,
+    "data": {
+        "trx_id": "trx-f2357a6ec47c297f0fd407cf0e7fcd31",
+        "status": "pending",
+        "unique_code": 902,
+        "total": 40902,
+        "type": "payment",
+        "invoice_number": "inv-moota-01",
+        "amount": 40000,
+        "payment_method_id": "9Y8mjNZjeJ7",
+        "payment_method_type": "bank_transfer",
+        "callback_url": "https://moota.co/getresponse/callback",
+        "increase_total_from_unique_code": 1,
+        "description": "faktur",
+        "customer": {
+            "name": "moota",
+            "email": "customer@moota.com",
+            "phone": ""
+        },
+        "items": [
+            {
+                "name": "kaos warna putih",
+                "qty": "2",
+                "price": "20000",
+                "sku": "sk-1",
+                "image_url": "https://loreamipsum/storage/tshirt.jpg"
+            },{
+                "name": "kaos warna hitam",
+                "qty": "2",
+                "price": "20000",
+                "sku": "sk-2",
+                "image_url": "https://loreamipsum/storage/tshirt.jpg"
+            }
+        ]
+    }
+}
