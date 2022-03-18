@@ -1,0 +1,8 @@
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "invoice_number": [
+            "invoice number inv-moota-01 sudah digunakan, invoice number harus unique"
+        ]
+    }
+}

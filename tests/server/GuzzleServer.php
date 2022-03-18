@@ -51,9 +51,26 @@ class GuzzleServer
             Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_REQUEST_OTP, 'hash_ewallet_id', '{bank_id}') => self::requestOTPEwallet($method,  $endpoint,  $headers,  $payload),
             Helper::replace_uri_with_id(Moota::ENDPOINT_BANK_EWALLET_VERIFICATION_OTP, 'hash_verification_ewallet_id', '{bank_id}') => self::verificationOTPEwallet($method,  $endpoint,  $headers,  $payload),
             Moota::ENDPOINT_AUTH_LOGIN => self::authLogin($method,  $endpoint,  $headers,  $payload),
+            Moota::ENDPOINT_CONTRACT_STORE => self::storeContract($method,  $endpoint,  $headers,  $payload),
 
             default => throw new \Exception('Unexpected match value'),
         };
+    }
+
+    private static function storeContract(string $method, string $endpoint, array $headers, array $payload): \GuzzleHttp\Psr7\Response
+    {
+        $mock_success_response = file_get_contents(dirname(__FILE__, '3') . '/tests/Mocking/Contract/MockStoreContractResponse.json');
+        $mock_fail_response = file_get_contents(dirname(__FILE__, '3') . '/tests/Mocking/Contract/MockFailContractStoreResponse.json');
+        $response = json_decode($mock_success_response, true);
+        $status = 200;
+        
+        if($payload['invoice_number'] == 'inv_moota_02') {
+            $response = json_decode($mock_fail_response, true);
+            $status = 422;
+        }
+
+
+        return self::mocking( $method,  $endpoint,  $headers,  $response, $status);
     }
 
     private static function authLogin(string $method, string $endpoint, array $headers, array $payload): \GuzzleHttp\Psr7\Response

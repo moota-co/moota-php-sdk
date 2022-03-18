@@ -16,6 +16,8 @@ class ParseResponse
         Moota::ENDPOINT_BANK_STORE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
         Moota::ENDPOINT_BANK_UPDATE => 'Moota\Moota\Response\BankAccount\BankAccountResponse',
 
+        Moota::ENDPOINT_CONTRACT_STORE => 'Moota\Moota\Response\Contract\ConctractStoreResponse',
+
         Moota::ENDPOINT_TAGGING_STORE => 'Moota\Moota\Response\Tagging\TaggingResponse',
 
         Moota::ENDPOINT_TOPUP_INDEX => 'Moota\Moota\Response\Topup\TopupResponse',
@@ -38,10 +40,9 @@ class ParseResponse
 
     public function __construct(\GuzzleHttp\Psr7\Response $results, $uri)
     {
-
         $response = json_decode($results->getBody()->getContents(), true);
         $status_code = $results->getStatusCode();
-
+      
 
         if( $status_code != 200 ) {
             $error_message = $response['message'] ?? $response['error'];

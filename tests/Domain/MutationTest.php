@@ -4,7 +4,6 @@
 namespace Test\Domain;
 
 use Moota\Moota\Config\Moota;
-use Moota\Moota\Domain\Mutation;
 use Moota\Moota\DTO\Mutation\MutationAttachTaggingData;
 use Moota\Moota\DTO\Mutation\MutationDestroyData;
 use Moota\Moota\DTO\Mutation\MutationDetachTaggingData;
@@ -42,9 +41,9 @@ class MutationTest extends TestCase
              1,
              20
         );
-
+        
         $response = GuzzleServer::request('GET', Moota::ENDPOINT_MUTATION_INDEX, [], $params->toArray());
-
+       
         $this->assertTrue($response->getStatusCode() === 200);
         (new ParseResponse($response, Moota::ENDPOINT_MUTATION_INDEX))->getResponse()->getData();
     }
