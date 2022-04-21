@@ -23,7 +23,7 @@ Visit [https://moota.co](https://moota.co) for more information about the produc
 If you are using [Composer](https://getcomposer.org), you can install via composer CLI:
 
 ```
-composer require moota-co/moota-php-sdk
+composer require mootaco/moota-php-sdk
 ```
 
 **or**
@@ -33,7 +33,7 @@ add this require line to your `composer.json` file:
 ```json
 {
   "require": {
-    "moota-co/moota-php-sdk": "1.*"
+    "mootaco/moota-php-sdk": "1.*"
   }
 }
 ```
