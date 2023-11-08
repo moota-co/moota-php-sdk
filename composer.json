@@ -16,11 +16,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8",
+        "php": ">=7.4",
         "ext-curl": "*",
-        "ext-json": "*",
-        "kitetail/zttp": "^0.6.0",
-        "spatie/data-transfer-object": "^1.0|^3.0"
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
@@ -28,8 +26,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "9.*",
-        "laravel/lumen-framework": "8.*"
+        "phpunit/phpunit": "9.*"
     },
     "autoload-dev": {
         "psr-4": {

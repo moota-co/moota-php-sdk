@@ -1,8 +1,0 @@
-{
-  "message": "The given data was invalid.",
-  "errors": {
-    "mutations": [
-      "Kolom mutations harus diisi."
-    ]
-  }
-}
