@@ -26,10 +26,7 @@ class Config
     const ENDPOINT_AUTH_LOGOUT = '/api/v2/auth/logout';
 
     const ENDPOINT_MUTATION_INDEX = '/api/v2/mutation';
-    const ENDPOINT_MUTATION_STORE = '/api/v2/mutation/store/';
     const ENDPOINT_MUTATION_NOTE = '/api/v2/mutation/{mutation_id}/note';
-    const ENDPOINT_MUTATION_PUSH_WEBHOOK = '/api/v2/mutation/{mutation_id}/webhook';
-    const ENDPOINT_MUTATION_DESTROY = '/api/v2/mutation/destroy';
 
     const ENDPOINT_BANK_INDEX = '/api/v2/bank';
     const ENDPOINT_BANK_STORE = '/api/v2/bank/store';
@@ -95,7 +92,7 @@ class Config
 
     public function getBaseUrl()
     {
-        // TODO
+        return self::BASE_URL;
     }
 
 }

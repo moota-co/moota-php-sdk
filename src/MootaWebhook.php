@@ -7,7 +7,7 @@ class MootaWebhook
     private string $secret;
     private string $signature;
     private string $content;
-    public function __construct($secret, $signature, $content = "php://input")
+    public function __construct(string $secret, string $signature, ?string $content = "php://input")
     {
         $this->secret = $secret;
         $this->signature = $signature;

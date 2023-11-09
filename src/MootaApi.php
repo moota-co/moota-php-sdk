@@ -15,24 +15,42 @@ class MootaApi
         return self::$instance;
     }
 
-    public static function getAccountList()
+    public static function getAccountList() : ?object
     {
-        // TODO Request Bank List
+        return ApiRequestor::get(
+            Config::BASE_URL . Config::ENDPOINT_BANK_INDEX,
+            Config::$ACCESS_TOKEN
+        );
     }
 
-    public function getMutation(string $mutation_id)
+    public static function getMutationList(?string $bank_id = null) : ?object
     {
-        // TODO Get Specifcit Mutation ID
+        return ApiRequestor::get(
+            Config::BASE_URL . Config::ENDPOINT_MUTATION_INDEX,
+            Config::$ACCESS_TOKEN
+        );
     }
 
-    public static function attachMutationNote(string $message)
+    public static function attachMutationNote(string $mutation_id, string $message) : ?object
     {
-        // TODO Request Attach Mutation Note
+        return ApiRequestor::post(
+            Config::BASE_URL . \str_replace("{mutation_id}", $mutation_id, Config::ENDPOINT_MUTATION_NOTE),
+            Config::$ACCESS_TOKEN,
+            [
+                "note" => $message
+            ]
+        );
     }
 
-    public static function attachMutationTag(array $tags)
+    public static function attachMutationTag(string $mutation_id, array $tags) : ?object
     {
-        // TODO : Attach Tags to mutations
+        return ApiRequestor::post(
+            Config::BASE_URL . \str_replace("{mutation_id}", $mutation_id, Config::ENDPOINT_ATTATCH_TAGGING_MUTATION),
+            Config::$ACCESS_TOKEN,
+            [
+                "name" => $tags
+            ]
+        );
     }
 
     public function __clone()
