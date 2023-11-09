@@ -6,9 +6,13 @@ class MootaApi
 {
     private static MootaApi $instance;
 
+    public function __construct()
+    {
+    }
+
     public static function getInstance(): MootaApi
     {
-        if ( !self::$instance ) {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
 

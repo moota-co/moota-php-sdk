@@ -78,6 +78,6 @@ class ApiRequester
             throw new \RuntimeException($error, $errno);
         }
         
-        return json_decode($response);
+        return json_decode($response, false);
     }
 }
