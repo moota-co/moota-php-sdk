@@ -12,10 +12,10 @@
     <testsuites>
         <testsuite name="Package Test Suite">
             <directory suffix=".php">./tests/</directory>
-            <exclude>./tests/server</exclude>
         </testsuite>
     </testsuites>
     <php>
-        <env name="TEST_SERVER_PORT" value="9000"/>
+        <env name="ACCESS_TOKEN" value="testing"/>
+        <env name="WEBHOOK_SECRET" value="secret"/>
     </php>
 </phpunit>

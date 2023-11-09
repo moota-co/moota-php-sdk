@@ -1,8 +1,0 @@
-{
-  "message": "The given data was invalid.",
-  "errors": {
-    "name": [
-      "Kolom name harus diisi."
-    ]
-  }
-}

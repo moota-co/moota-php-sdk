@@ -12,15 +12,17 @@
         {
             "name": "Mugiono Arif S",
             "email": "mugypleci@gmail.com"
+        },
+        {
+            "name": "Diki Akbar Asyidiq",
+            "email": "diki.akbar1304@gmail.com"
         }
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8",
+        "php": ">=7.4",
         "ext-curl": "*",
-        "ext-json": "*",
-        "kitetail/zttp": "^0.6.0",
-        "spatie/data-transfer-object": "^1.0|^3.0"
+        "phpunit/phpunit": "5.7.*"
     },
     "autoload": {
         "psr-4": {
@@ -28,8 +30,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "9.*",
-        "laravel/lumen-framework": "8.*"
+        "phpunit/phpunit": "5.7.*"
     },
     "autoload-dev": {
         "psr-4": {
