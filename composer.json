@@ -22,7 +22,7 @@
     "require": {
         "php": ">=7.4",
         "ext-curl": "*",
-        "phpunit/phpunit": "5.7.*"
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

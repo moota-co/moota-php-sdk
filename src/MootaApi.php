@@ -4,9 +4,9 @@ namespace Moota\Moota;
 
 class MootaApi
 {
-    private static $instance;
+    private static MootaApi $instance;
 
-    public static function getInstance()
+    public static function getInstance(): MootaApi
     {
         if ( !self::$instance ) {
             self::$instance = new self();
@@ -17,7 +17,7 @@ class MootaApi
 
     public static function getAccountList() : ?object
     {
-        return ApiRequestor::get(
+        return ApiRequester::get(
             Config::BASE_URL . Config::ENDPOINT_BANK_INDEX,
             Config::$ACCESS_TOKEN
         );
@@ -25,7 +25,7 @@ class MootaApi
 
     public static function getMutationList(?string $bank_id = null) : ?object
     {
-        return ApiRequestor::get(
+        return ApiRequester::get(
             Config::BASE_URL . Config::ENDPOINT_MUTATION_INDEX,
             Config::$ACCESS_TOKEN
         );
@@ -33,7 +33,7 @@ class MootaApi
 
     public static function attachMutationNote(string $mutation_id, string $message) : ?object
     {
-        return ApiRequestor::post(
+        return ApiRequester::post(
             Config::BASE_URL . \str_replace("{mutation_id}", $mutation_id, Config::ENDPOINT_MUTATION_NOTE),
             Config::$ACCESS_TOKEN,
             [
@@ -44,7 +44,7 @@ class MootaApi
 
     public static function attachMutationTag(string $mutation_id, array $tags) : ?object
     {
-        return ApiRequestor::post(
+        return ApiRequester::post(
             Config::BASE_URL . \str_replace("{mutation_id}", $mutation_id, Config::ENDPOINT_ATTATCH_TAGGING_MUTATION),
             Config::$ACCESS_TOKEN,
             [
