@@ -57,6 +57,14 @@ class MootaApi
         );
     }
 
+    public static function refreshMutationNow(string $bank_id) : ?object
+    {
+        return ApiRequester::post(
+            Config::BASE_URL . \str_replace("{bank_id}", $bank_id, Config::ENDPOINT_BANK_REFRESH_MUTATION),
+            Config::$ACCESS_TOKEN
+        );
+    }
+
     public function __clone()
     {
     }
